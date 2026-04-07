@@ -23,9 +23,6 @@
         --green: #3ecf8e;
         --red: #f87171;
         --blue: #60a5fa;
-        --rank1: #f5c542;
-        --rank2: #a8b5c8;
-        --rank3: #cd7f4a;
       }
       * {
         box-sizing: border-box;
@@ -224,13 +221,21 @@
       .table-head span:nth-child(2) {
         text-align: left;
       }
+
+      /* ── PATCH 7: ANIMATIONS ── */
       .table-row {
         display: grid;
         grid-template-columns: 56px 1fr 72px 72px 72px 72px 72px 72px 80px;
         padding: 14px 20px;
         border-bottom: 1px solid var(--border);
         align-items: center;
-        transition: background 0.12s;
+        transition: all 0.35s ease;
+        opacity: 0;
+        transform: translateY(10px);
+      }
+      .table-row.show {
+        opacity: 1;
+        transform: translateY(0);
       }
       .table-row:last-child {
         border-bottom: none;
@@ -238,6 +243,7 @@
       .table-row:hover {
         background: rgba(255, 255, 255, 0.03);
       }
+
       .rank-badge {
         width: 32px;
         height: 32px;
@@ -271,6 +277,7 @@
         border: 1px solid var(--border);
         font-size: 13px;
       }
+
       .player-info {
         display: flex;
         align-items: center;
@@ -318,15 +325,10 @@
         font-family: "Rajdhani", sans-serif;
         font-weight: 700;
         font-size: 22px;
-      }
-      .pts-top {
         color: var(--gold);
       }
-      .pts-3rd {
-        color: var(--bronze);
-      }
 
-      /* ── BOTTOM PANELS ── */
+      /* ── PANELS & MODALS ── */
       .panels {
         display: grid;
         grid-template-columns: 1fr 1fr;
@@ -351,119 +353,6 @@
         margin-bottom: 16px;
       }
 
-      /* ── ACTIVITY FEED ── */
-      .feed-dot {
-        width: 8px;
-        height: 8px;
-        background: var(--green);
-        border-radius: 50%;
-        display: inline-block;
-        margin-right: 6px;
-      }
-      .feed-item {
-        display: flex;
-        align-items: center;
-        justify-content: space-between;
-        padding: 9px 0;
-        border-bottom: 1px solid var(--border);
-        font-size: 13px;
-        gap: 8px;
-      }
-      .feed-item:last-child {
-        border-bottom: none;
-      }
-      .feed-time {
-        color: var(--muted);
-        font-size: 11px;
-        flex-shrink: 0;
-      }
-      .feed-by {
-        color: var(--muted);
-        font-size: 11px;
-        flex-shrink: 0;
-      }
-      .feed-action {
-        flex: 1;
-      }
-
-      /* ── CATCH-UP RULES ── */
-      .rules-section {
-        margin-bottom: 14px;
-      }
-      .rules-label {
-        font-size: 10px;
-        font-weight: 700;
-        letter-spacing: 1px;
-        text-transform: uppercase;
-        margin-bottom: 8px;
-        padding: 3px 0;
-        border-bottom: 1px solid var(--border);
-      }
-      .rules-label.elig {
-        color: var(--gold);
-        border-color: rgba(245, 197, 66, 0.2);
-      }
-      .rules-label.cap-lbl {
-        color: var(--red);
-        border-color: rgba(248, 113, 113, 0.2);
-      }
-      .rules-label.pts-lbl {
-        color: var(--blue);
-        border-color: rgba(96, 165, 250, 0.2);
-      }
-      .rules-text {
-        font-size: 12px;
-        color: var(--muted);
-        line-height: 1.6;
-      }
-      .rules-text strong {
-        color: var(--text);
-      }
-      .pts-grid {
-        display: grid;
-        grid-template-columns: 1fr 1fr 1fr;
-        gap: 8px;
-        margin-top: 8px;
-      }
-      .pts-card {
-        background: var(--bg3);
-        border: 1px solid var(--border);
-        border-radius: 8px;
-        padding: 8px;
-        text-align: center;
-      }
-      .pts-card .pts-num {
-        font-family: "Rajdhani", sans-serif;
-        font-weight: 700;
-        font-size: 20px;
-      }
-      .pts-card .pts-lbl2 {
-        font-size: 10px;
-        color: var(--muted);
-        text-transform: uppercase;
-        letter-spacing: 0.5px;
-      }
-      .pts-card.mvp .pts-num {
-        color: var(--mvp);
-      }
-      .pts-card.gold .pts-num {
-        color: var(--gold);
-      }
-      .pts-card.silver .pts-num {
-        color: var(--silver);
-      }
-      .pts-card.bronze .pts-num {
-        color: var(--bronze);
-      }
-      .pts-card.loss .pts-num {
-        color: var(--red);
-      }
-      .pts-card.win .pts-num {
-        color: var(--green);
-        font-size: 16px;
-      }
-
-      /* ── ADMIN MODAL ── */
       .modal-overlay {
         display: none;
         position: fixed;
@@ -484,14 +373,6 @@
         max-width: 480px;
         padding: 28px;
         margin: 16px;
-        max-height: 90vh;
-        overflow-y: auto;
-      }
-      .modal h2 {
-        font-family: "Rajdhani", sans-serif;
-        font-size: 22px;
-        letter-spacing: 1px;
-        margin-bottom: 20px;
       }
       .form-group {
         margin-bottom: 16px;
@@ -502,7 +383,6 @@
         color: var(--muted);
         margin-bottom: 6px;
         text-transform: uppercase;
-        letter-spacing: 0.5px;
       }
       .form-group input,
       .form-group select {
@@ -512,25 +392,38 @@
         border: 1px solid var(--border);
         border-radius: 8px;
         color: var(--text);
-        font-size: 14px;
-        font-family: "Inter", sans-serif;
         outline: none;
       }
-      .form-group input:focus,
-      .form-group select:focus {
-        border-color: rgba(176, 124, 255, 0.5);
-      }
-      .form-row {
-        display: grid;
-        grid-template-columns: 1fr 1fr;
-        gap: 12px;
-      }
-      .modal-actions {
+      .admin-tabs {
         display: flex;
-        gap: 10px;
-        justify-content: flex-end;
-        margin-top: 20px;
+        gap: 2px;
+        margin-bottom: 20px;
+        background: var(--bg3);
+        border-radius: 8px;
+        padding: 3px;
       }
+      .admin-tab {
+        flex: 1;
+        padding: 8px;
+        border-radius: 6px;
+        font-size: 13px;
+        cursor: pointer;
+        text-align: center;
+        color: var(--muted);
+        border: none;
+        background: transparent;
+      }
+      .admin-tab.active {
+        background: var(--bg2);
+        color: var(--text);
+      }
+      .tab-content {
+        display: none;
+      }
+      .tab-content.active {
+        display: block;
+      }
+
       .msg {
         font-size: 13px;
         padding: 8px 12px;
@@ -550,73 +443,48 @@
         border: 1px solid rgba(248, 113, 113, 0.3);
         display: block;
       }
-      .admin-tabs {
-        display: flex;
-        gap: 2px;
-        margin-bottom: 20px;
+
+      .pts-grid {
+        display: grid;
+        grid-template-columns: 1fr 1fr 1fr;
+        gap: 8px;
+        margin-top: 8px;
+      }
+      .pts-card {
         background: var(--bg3);
+        border: 1px solid var(--border);
         border-radius: 8px;
-        padding: 3px;
-      }
-      .admin-tab {
-        flex: 1;
         padding: 8px;
-        border-radius: 6px;
-        font-size: 13px;
-        font-weight: 500;
-        cursor: pointer;
         text-align: center;
+      }
+      .pts-num {
+        font-family: "Rajdhani", sans-serif;
+        font-weight: 700;
+        font-size: 20px;
+      }
+      .pts-lbl2 {
+        font-size: 10px;
         color: var(--muted);
-        transition: all 0.15s;
-        border: none;
-        background: transparent;
+        text-transform: uppercase;
       }
-      .admin-tab.active {
-        background: var(--bg2);
-        color: var(--text);
-      }
-      .tab-content {
-        display: none;
-      }
-      .tab-content.active {
-        display: block;
-      }
-      .player-list-item {
-        display: flex;
-        align-items: center;
-        justify-content: space-between;
-        padding: 10px 0;
-        border-bottom: 1px solid var(--border);
-      }
-      .player-list-item:last-child {
-        border-bottom: none;
-      }
-      .btn-danger {
-        background: rgba(248, 113, 113, 0.1);
-        border-color: rgba(248, 113, 113, 0.3);
-        color: var(--red);
-      }
-      .btn-danger:hover {
-        background: rgba(248, 113, 113, 0.2);
-      }
-      .btn-sm {
-        padding: 4px 12px;
-        font-size: 12px;
-        border-radius: 6px;
-      }
-      select option {
-        background: #1c2030;
-      }
+
       #loading {
         text-align: center;
         padding: 60px;
         color: var(--muted);
         font-size: 14px;
       }
+      .feed-item {
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        padding: 9px 0;
+        border-bottom: 1px solid var(--border);
+        font-size: 13px;
+      }
     </style>
   </head>
   <body>
-    <!-- TOP BAR -->
     <div class="topbar">
       <div class="topbar-left">
         <div class="logo-badge">S</div>
@@ -633,11 +501,9 @@
       </div>
     </div>
 
-    <!-- MAIN -->
     <div class="main">
       <div class="section-label">Leaderboard</div>
 
-      <!-- Legend -->
       <div class="legend">
         <div class="legend-item">
           <span class="tag tag-mvp">MVP</span> <span>+5 pts</span>
@@ -656,7 +522,6 @@
         </div>
       </div>
 
-      <!-- Table -->
       <div class="table-wrap">
         <div class="table-head">
           <span>#</span>
@@ -672,13 +537,9 @@
         <div id="leaderboard"><div id="loading">Loading scores…</div></div>
       </div>
 
-      <!-- Bottom panels -->
       <div class="panels">
-        <!-- Activity Feed -->
         <div class="panel">
-          <div class="panel-title">
-            <span class="feed-dot"></span>Recent Actions
-          </div>
+          <div class="panel-title">Recent Actions</div>
           <div id="activity-feed">
             <div style="color: var(--muted); font-size: 13px">
               No activity yet.
@@ -686,94 +547,49 @@
           </div>
         </div>
 
-        <!-- Catch-up Rules -->
         <div class="panel">
           <div class="panel-title">ⓘ Solo Catch-Up Rules</div>
-
-          <div class="rules-section">
-            <div class="rules-label elig">Eligibility</div>
-            <div class="rules-text">
-              A player may only earn solo catch-up points if they are
-              <strong>15 or more points</strong> behind the #1 player.
-            </div>
-          </div>
-
-          <div class="rules-section">
-            <div class="rules-label cap-lbl">Cap</div>
-            <div class="rules-text">
-              Solo points stop the moment the player's total reaches the
-              <strong>#3 player's current score</strong>. Excess is capped
-              automatically.
-            </div>
-          </div>
-
-          <div class="rules-section">
-            <div class="rules-label pts-lbl">Point Values (Solo)</div>
+          <div class="form-group">
             <div class="pts-grid">
-              <div class="pts-card mvp">
-                <div class="pts-num">+7</div>
+              <div class="pts-card">
+                <div class="pts-num" style="color: var(--mvp)">+7</div>
                 <div class="pts-lbl2">MVP</div>
               </div>
-              <div class="pts-card gold">
-                <div class="pts-num">+5</div>
+              <div class="pts-card">
+                <div class="pts-num" style="color: var(--gold)">+5</div>
                 <div class="pts-lbl2">Gold</div>
               </div>
-              <div class="pts-card silver">
-                <div class="pts-num">+4</div>
+              <div class="pts-card">
+                <div class="pts-num" style="color: var(--silver)">+4</div>
                 <div class="pts-lbl2">Silver</div>
               </div>
-              <div class="pts-card bronze">
-                <div class="pts-num">+0</div>
-                <div class="pts-lbl2">Bronze</div>
-              </div>
-              <div class="pts-card loss">
-                <div class="pts-num">+2</div>
-                <div class="pts-lbl2">MVP Loss</div>
-              </div>
-              <div class="pts-card win">
-                <div class="pts-num">★</div>
-                <div class="pts-lbl2">Win req.</div>
-              </div>
             </div>
           </div>
-
-          <div class="rules-section" style="margin-top: 8px">
-            <div class="rules-label pts-lbl" style="color: var(--muted)">
-              Tied scores — solo
-            </div>
-            <div class="rules-text">
-              MVP +2 · Gold +1 · Silver +1 · Bronze −1 · MVP Loss +1
-            </div>
-          </div>
+          <p style="font-size: 12px; color: var(--muted); line-height: 1.5">
+            Solo points activate when <strong>15+ pts</strong> behind #1. <br />
+            Capped at <strong>#3 player's score</strong>.
+          </p>
         </div>
       </div>
     </div>
 
-    <!-- ADMIN LOGIN MODAL -->
     <div class="modal-overlay" id="login-modal">
       <div class="modal">
         <h2>Admin Login</h2>
         <div class="msg" id="login-msg"></div>
         <div class="form-group">
-          <label>Email</label>
-          <input
-            type="email"
-            id="login-email"
-            placeholder="admin@example.com"
-          />
+          <label>Email</label><input type="email" id="login-email" />
         </div>
         <div class="form-group">
-          <label>Password</label>
-          <input type="password" id="login-pass" placeholder="••••••••" />
+          <label>Password</label><input type="password" id="login-pass" />
         </div>
         <div class="modal-actions">
-          <button class="btn" onclick="closeModals()">Cancel</button>
-          <button class="btn btn-primary" onclick="doLogin()">Sign In</button>
+          <button class="btn" onclick="closeModals()">Cancel</button
+          ><button class="btn btn-primary" onclick="doLogin()">Sign In</button>
         </div>
       </div>
     </div>
 
-    <!-- ADMIN PANEL MODAL -->
     <div class="modal-overlay" id="admin-modal">
       <div class="modal">
         <div
@@ -785,33 +601,34 @@
           "
         >
           <h2 style="margin: 0">Admin Panel</h2>
-          <button class="btn btn-sm btn-danger" onclick="doLogout()">
-            Sign Out
-          </button>
+          <button class="btn btn-danger" onclick="doLogout()">Sign Out</button>
         </div>
-
         <div class="admin-tabs">
-          <button class="admin-tab active" onclick="switchTab('award')">
-            Award Points
+          <button
+            class="admin-tab active"
+            id="tab-btn-award"
+            onclick="switchTab('award')"
+          >
+            Award
           </button>
-          <button class="admin-tab" onclick="switchTab('players')">
+          <button
+            class="admin-tab"
+            id="tab-btn-players"
+            onclick="switchTab('players')"
+          >
             Players
           </button>
         </div>
-
-        <!-- Award Tab -->
         <div class="tab-content active" id="tab-award">
           <div class="msg" id="award-msg"></div>
           <div class="form-group">
-            <label>Player</label>
-            <select id="award-player">
-              <option value="">Select player…</option>
-            </select>
+            <label>Player</label
+            ><select id="award-player" onchange="updateSoloState()"></select>
           </div>
-          <div class="form-row">
+          <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 12px">
             <div class="form-group">
-              <label>Award Type</label>
-              <select id="award-type" onchange="updateSoloState()">
+              <label>Type</label
+              ><select id="award-type" onchange="updateSoloState()">
                 <option value="mvp">MVP (Win)</option>
                 <option value="gold">Gold (Win)</option>
                 <option value="silver">Silver (Win)</option>
@@ -820,59 +637,48 @@
               </select>
             </div>
             <div class="form-group">
-              <label>Mode</label>
-              <select id="award-mode" onchange="updateSoloState()">
+              <label>Mode</label
+              ><select id="award-mode" onchange="updateSoloState()">
                 <option value="group">Group</option>
                 <option value="solo">Solo Catch-Up</option>
-                <option value="tied">Tied Solo</option>
               </select>
             </div>
           </div>
-          <div class="form-group">
-            <label>Preview</label>
-            <div
-              id="pts-preview"
-              style="
-                background: var(--bg3);
-                border: 1px solid var(--border);
-                border-radius: 8px;
-                padding: 12px;
-                font-size: 14px;
-                color: var(--muted);
-              "
-            >
-              Select player and type to preview points.
-            </div>
+          <div
+            id="pts-preview"
+            style="
+              background: var(--bg3);
+              padding: 10px;
+              border-radius: 8px;
+              font-size: 12px;
+              color: var(--muted);
+            "
+          >
+            Select player to preview.
           </div>
-          <div class="modal-actions">
-            <button class="btn" onclick="closeModals()">Cancel</button>
-            <button class="btn btn-primary" onclick="doAward()">
+          <div class="modal-actions" style="margin-top: 15px">
+            <button class="btn" onclick="closeModals()">Cancel</button
+            ><button class="btn btn-primary" onclick="doAward()">
               Award Points
             </button>
           </div>
         </div>
-
-        <!-- Players Tab -->
         <div class="tab-content" id="tab-players">
-          <div class="msg" id="player-msg"></div>
           <div class="form-group">
-            <label>Add New Player</label>
-            <div style="display: flex; gap: 8px">
-              <input
-                type="text"
-                id="new-player-name"
-                placeholder="Player name"
-                style="flex: 1"
-              />
-              <button class="btn btn-primary" onclick="addPlayer()">Add</button>
-            </div>
+            <label>New Player</label
+            ><input type="text" id="new-player-name" /><button
+              class="btn btn-primary"
+              style="margin-top: 8px; width: 100%"
+              onclick="addPlayer()"
+            >
+              Add Player
+            </button>
           </div>
-          <div id="player-list" style="margin-top: 8px"></div>
+          <div id="player-list"></div>
         </div>
       </div>
     </div>
 
-    <!-- Firebase SDK -->
     <script type="module">
       import { initializeApp } from "https://www.gstatic.com/firebasejs/10.12.0/firebase-app.js";
       import {
@@ -883,7 +689,6 @@
         addDoc,
         updateDoc,
         deleteDoc,
-        getDocs,
         serverTimestamp,
         query,
         orderBy,
@@ -903,125 +708,82 @@
         storageBucket: "scoreboard-3c806.firebasestorage.app",
         messagingSenderId: "435688264712",
         appId: "1:435688264712:web:4e46118ced567202866dbd",
-        measurementId: "G-Q60E395S89",
       };
-      // ────────────────────────────────────────────────
 
       const app = initializeApp(firebaseConfig);
       const db = getFirestore(app);
       const auth = getAuth(app);
 
-      // Avatar colors
-      const COLORS = [
-        "#b07cff",
-        "#f5c542",
-        "#3ecf8e",
-        "#60a5fa",
-        "#f87171",
-        "#fb923c",
-        "#a78bfa",
-        "#34d399",
-        "#f472b6",
-      ];
-      function getColor(name) {
-        let h = 0;
-        for (let c of name) h = (h * 31 + c.charCodeAt(0)) % COLORS.length;
-        return COLORS[h];
-      }
-      function initials(name) {
-        return name.slice(0, 2).toUpperCase();
-      }
-
-      // Point tables
+      // --- CONFIG & STATE ---
       const GROUP_PTS = { mvp: 5, gold: 4, silver: 3, bronze: -1, mvp_loss: 1 };
       const SOLO_PTS = { mvp: 7, gold: 5, silver: 4, bronze: 0, mvp_loss: 2 };
       const TIED_PTS = { mvp: 2, gold: 1, silver: 1, bronze: -1, mvp_loss: 1 };
 
-      function calcPoints(type, mode, player, sorted) {
-        const rank1 = sorted[0];
-        const rank3 = sorted[2];
+      let players = [];
+      let sorted = [];
+
+      // --- PATCH 5: HARDENED CALC LOGIC ---
+      function calcPoints(type, mode, player, sortedList) {
         if (mode === "solo") {
+          const rank1 = sortedList[0];
+          const rank3 = sortedList[2];
           const behind = rank1 ? rank1.points - player.points : 0;
+
           if (behind < 15)
-            return {
-              pts: 0,
-              note: "Not eligible — less than 15 pts behind #1.",
-            };
+            return { pts: 0, note: "Not eligible — < 15 pts behind #1." };
+          if (rank3 && player.points >= rank3.points)
+            return { pts: 0, note: "Solo disabled — reached #3 score." };
+
           let pts = SOLO_PTS[type];
           if (rank3 && player.points + pts > rank3.points) {
             pts = Math.max(0, rank3.points - player.points);
-            return {
-              pts,
-              note: `Capped at #3 score (${rank3.points}). Effective: +${pts}`,
-            };
+            return { pts, note: `Capped at #3 (${rank3.points}). +${pts}` };
           }
-          return { pts, note: `Solo catch-up eligible. +${pts} pts.` };
+          return { pts, note: `Solo catch-up active. +${pts}` };
         }
         if (mode === "tied")
-          return {
-            pts: TIED_PTS[type],
-            note: `Tied solo. ${TIED_PTS[type] >= 0 ? "+" : ""}${TIED_PTS[type]} pts.`,
-          };
+          return { pts: TIED_PTS[type], note: `Tied solo. +${TIED_PTS[type]}` };
         return {
           pts: GROUP_PTS[type],
-          note: `Group score. ${GROUP_PTS[type] >= 0 ? "+" : ""}${GROUP_PTS[type]} pts.`,
+          note: `Group score. +${GROUP_PTS[type]}`,
         };
       }
 
-      // State
-      let players = [];
-      let sorted = [];
-      let isAdmin = false;
-
-      // Auth state
-      onAuthStateChanged(auth, (user) => {
-        isAdmin = !!user;
-        document.getElementById("admin-btn").textContent = user
-          ? "Admin ✓"
-          : "Admin";
-      });
-
-      // Real-time players
-      const playersRef = collection(db, "players");
-      onSnapshot(query(playersRef), (snap) => {
+      // --- DATA SYNC ---
+      onSnapshot(query(collection(db, "players")), (snap) => {
         players = snap.docs.map((d) => ({ id: d.id, ...d.data() }));
-        players.forEach((p) => {
-          p.points =
-            (p.mvp || 0) * 5 +
-            (p.gold || 0) * 4 +
-            (p.silver || 0) * 3 +
-            (p.bronze || 0) * -1 +
-            (p.mvp_loss || 0) * 1;
-        });
+        // PATCH 1: Clean Point Init
+        players.forEach((p) => (p.points = p.points || 0));
         sorted = [...players].sort((a, b) => b.points - a.points);
         renderLeaderboard();
-        renderPlayerSelect();
-        renderPlayerList();
+        updateAwardDropdown();
       });
 
-      // Real-time feed
-      const actRef = collection(db, "activity");
-      onSnapshot(query(actRef, orderBy("ts", "desc"), limit(20)), (snap) => {
-        const items = snap.docs.map((d) => d.data());
-        renderFeed(items);
-      });
+      onSnapshot(
+        query(collection(db, "activity"), orderBy("ts", "desc"), limit(10)),
+        (snap) => {
+          const feed = document.getElementById("activity-feed");
+          feed.innerHTML = snap.docs
+            .map((d) => {
+              const data = d.data();
+              return `<div class="feed-item"><span>${data.name}</span> <strong style="color:var(--green)">+${data.pts}</strong> <span style="font-size:10px; color:var(--muted)">${data.mode}</span></div>`;
+            })
+            .join("");
+        },
+      );
 
+      // --- PATCH 3, 6, 7: RENDER ---
       function renderLeaderboard() {
         const el = document.getElementById("leaderboard");
-        if (!sorted.length) {
-          el.innerHTML =
-            '<div style="padding:32px;text-align:center;color:var(--muted);font-size:14px">No players yet. Add some in Admin.</div>';
-          return;
-        }
         const rank1pts = sorted[0]?.points || 0;
         const rank3pts = sorted[2]?.points;
+
         el.innerHTML = sorted
           .map((p, i) => {
             const rank = i + 1;
-            const behind = rank1pts - p.points;
-            const eligible = behind >= 15;
-            const atCap =
-              rank3pts !== undefined && p.points >= rank3pts && rank > 3;
+            // Patch 6: Badges
+            const badge =
+              rank === 1 ? "🥇" : rank === 2 ? "🥈" : rank === 3 ? "🥉" : rank;
             const rankClass =
               rank === 1
                 ? "rank-1"
@@ -1030,267 +792,131 @@
                   : rank === 3
                     ? "rank-3"
                     : "rank-n";
-            const ptsClass =
-              rank === 1 ? "pts-top" : rank === 3 ? "pts-3rd" : "";
-            const col = getColor(p.name);
-            return `<div class="table-row">
-      <div><div class="rank-badge ${rankClass}">${rank}</div></div>
-      <div class="player-info">
-        <div class="avatar" style="background:${col}22;color:${col};border:1.5px solid ${col}44">${initials(p.name)}</div>
-        <div>
-          <div class="player-name">${p.name}${eligible && !atCap ? '<span class="catch-up-badge">BUFF</span>' : ""}</div>
-        </div>
-      </div>
-      <div class="cell ${p.mvp ? "cell-val" : ""}">${p.mvp || "—"}</div>
-      <div class="cell ${p.gold ? "cell-val" : ""}">${p.gold || "—"}</div>
-      <div class="cell ${p.silver ? "cell-val" : ""}">${p.silver || "—"}</div>
-      <div class="cell ${p.bronze ? "cell-val" : ""}">${p.bronze || "—"}</div>
-      <div class="cell ${p.mvp_loss ? "cell-val" : ""}">${p.mvp_loss || "—"}</div>
-      <div class="cell cell-val">${p.mvp || 0 + p.gold || 0 + p.silver || 0}</div>
-      <div class="points-val ${ptsClass}">${p.points}</div>
-    </div>`;
+            const eligible =
+              rank1pts - p.points >= 15 &&
+              (rank3pts === undefined || p.points < rank3pts);
+
+            return `
+          <div class="table-row">
+            <div><div class="rank-badge ${rankClass}">${badge}</div></div>
+            <div class="player-info">
+              <div class="avatar" style="background:rgba(255,255,255,0.1)">${p.name.slice(0, 2)}</div>
+              <div class="player-name">${p.name}${eligible ? '<span class="catch-up-badge">BUFF</span>' : ""}</div>
+            </div>
+            <div class="cell">${p.mvp || 0}</div>
+            <div class="cell">${p.gold || 0}</div>
+            <div class="cell">${p.silver || 0}</div>
+            <div class="cell">${p.bronze || 0}</div>
+            <div class="cell">${p.mvp_loss || 0}</div>
+            <div class="cell cell-val">${(p.mvp || 0) + (p.gold || 0) + (p.silver || 0)}</div>
+            <div class="points-val">${p.points}</div>
+          </div>`;
           })
           .join("");
+
+        // Patch 7: Entrance Animation
+        setTimeout(() => {
+          document.querySelectorAll(".table-row").forEach((row, idx) => {
+            setTimeout(() => row.classList.add("show"), idx * 60);
+          });
+        }, 50);
       }
 
-      function renderFeed(items) {
-        const el = document.getElementById("activity-feed");
-        if (!items.length) {
-          el.innerHTML =
-            '<div style="color:var(--muted);font-size:13px">No activity yet.</div>';
-          return;
-        }
-        el.innerHTML = items
-          .map((item) => {
-            const tagMap = {
-              mvp: "tag-mvp",
-              gold: "tag-gold",
-              silver: "tag-silver",
-              bronze: "tag-bronze",
-              mvp_loss: "tag-loss",
-            };
-            const labelMap = {
-              mvp: "MVP",
-              gold: "Gold",
-              silver: "Silver",
-              bronze: "Bronze",
-              mvp_loss: "MVP Loss",
-            };
-            const sign = item.pts >= 0 ? "+" : "";
-            const timeStr = item.ts?.toDate
-              ? item.ts
-                  .toDate()
-                  .toLocaleTimeString([], {
-                    hour: "2-digit",
-                    minute: "2-digit",
-                  })
-              : "";
-            return `<div class="feed-item">
-      <span class="feed-time">${timeStr}</span>
-      <span class="feed-action">
-        <span class="tag ${tagMap[item.type] || ""}">${labelMap[item.type] || item.type}</span>
-        <span style="margin-left:6px">${item.name} <strong style="color:${item.pts >= 0 ? "var(--green)" : "var(--red)"}">${sign}${item.pts}</strong></span>
-        ${item.mode !== "group" ? `<span style="font-size:10px;color:var(--muted);margin-left:4px">(${item.mode})</span>` : ""}
-      </span>
-      <span class="feed-by">admin</span>
-    </div>`;
-          })
-          .join("");
-      }
+      // --- ADMIN ACTIONS ---
+      window.doAward = async function () {
+        const pId = document.getElementById("award-player").value;
+        const type = document.getElementById("award-type").value;
+        let mode = document.getElementById("award-mode").value;
 
-      function renderPlayerSelect() {
-        const sel = document.getElementById("award-player");
-        const cur = sel.value;
-        sel.innerHTML =
-          '<option value="">Select player…</option>' +
-          sorted
-            .map(
-              (p) =>
-                `<option value="${p.id}">${p.name} (${p.points} pts)</option>`,
-            )
-            .join("");
-        if (cur) sel.value = cur;
-      }
+        // PATCH 4: Auto Tied
+        const allSame =
+          sorted.length > 1 &&
+          sorted.every((p) => p.points === sorted[0].points);
+        if (allSame) mode = "tied";
 
-      function renderPlayerList() {
-        const el = document.getElementById("player-list");
-        if (!players.length) {
-          el.innerHTML =
-            '<div style="color:var(--muted);font-size:13px">No players yet.</div>';
-          return;
-        }
-        el.innerHTML = players
-          .map(
-            (p) => `
-    <div class="player-list-item">
-      <div class="player-info">
-        <div class="avatar" style="background:${getColor(p.name)}22;color:${getColor(p.name)};border:1.5px solid ${getColor(p.name)}44;width:28px;height:28px;font-size:11px">${initials(p.name)}</div>
-        <span style="font-weight:500">${p.name}</span>
-        <span style="color:var(--muted);font-size:12px">(${p.points} pts)</span>
-      </div>
-      <button class="btn btn-sm btn-danger" onclick="removePlayer('${p.id}','${p.name}')">Remove</button>
-    </div>
-  `,
-          )
-          .join("");
-      }
+        const player = players.find((p) => p.id === pId);
+        const { pts, note } = calcPoints(type, mode, player, sorted);
 
-      // ── Global functions ──
-      window.openAdmin = () => {
-        if (isAdmin) {
-          document.getElementById("admin-modal").classList.add("open");
-        } else {
-          document.getElementById("login-modal").classList.add("open");
+        try {
+          // PATCH 2: Correct Point Storage
+          await updateDoc(doc(db, "players", pId), {
+            [type]: (player[type] || 0) + 1,
+            points: (player.points || 0) + pts,
+          });
+          await addDoc(collection(db, "activity"), {
+            name: player.name,
+            pts,
+            mode,
+            ts: serverTimestamp(),
+          });
+          document.getElementById("award-msg").className = "msg ok";
+          document.getElementById("award-msg").textContent = note;
+        } catch (e) {
+          alert(e.message);
         }
       };
-      window.closeModals = () => {
+
+      window.updateSoloState = function () {
+        const pId = document.getElementById("award-player").value;
+        if (!pId) return;
+        const player = players.find((p) => p.id === pId);
+        const type = document.getElementById("award-type").value;
+        const mode = document.getElementById("award-mode").value;
+        const res = calcPoints(type, mode, player, sorted);
+        document.getElementById("pts-preview").innerHTML =
+          `<strong>${res.pts} Points</strong><br>${res.note}`;
+      };
+
+      // --- AUTH & UI HELPERS ---
+      window.openAdmin = () =>
+        document
+          .getElementById(auth.currentUser ? "admin-modal" : "login-modal")
+          .classList.add("open");
+      window.closeModals = () =>
         document
           .querySelectorAll(".modal-overlay")
           .forEach((m) => m.classList.remove("open"));
-      };
-      window.doLogin = async () => {
-        const email = document.getElementById("login-email").value;
-        const pass = document.getElementById("login-pass").value;
-        const msg = document.getElementById("login-msg");
-        msg.className = "msg";
-        try {
-          await signInWithEmailAndPassword(auth, email, pass);
-          closeModals();
-          document.getElementById("admin-modal").classList.add("open");
-        } catch (e) {
-          msg.textContent = "Login failed: " + e.message;
-          msg.className = "msg err";
-        }
-      };
-      window.doLogout = async () => {
-        await signOut(auth);
-        closeModals();
-      };
-
-      window.switchTab = (tab) => {
-        document
-          .querySelectorAll(".admin-tab")
-          .forEach((t, i) =>
-            t.classList.toggle("active", ["award", "players"][i] === tab),
-          );
+      window.doLogin = () =>
+        signInWithEmailAndPassword(
+          auth,
+          document.getElementById("login-email").value,
+          document.getElementById("login-pass").value,
+        )
+          .then(closeModals)
+          .catch((e) => alert(e.message));
+      window.doLogout = () => signOut(auth).then(closeModals);
+      window.switchTab = (t) => {
         document
           .querySelectorAll(".tab-content")
-          .forEach((t) => t.classList.remove("active"));
-        document.getElementById("tab-" + tab).classList.add("active");
+          .forEach((c) => c.classList.remove("active"));
+        document
+          .querySelectorAll(".admin-tab")
+          .forEach((b) => b.classList.remove("active"));
+        document.getElementById("tab-" + t).classList.add("active");
+        document.getElementById("tab-btn-" + t).classList.add("active");
       };
-
-      window.updateSoloState = () => {
-        const playerId = document.getElementById("award-player").value;
-        const type = document.getElementById("award-type").value;
-        const mode = document.getElementById("award-mode").value;
-        const preview = document.getElementById("pts-preview");
-        if (!playerId) {
-          preview.textContent = "Select player and type to preview points.";
-          return;
-        }
-        const player = players.find((p) => p.id === playerId);
-        if (!player) return;
-        const { pts, note } = calcPoints(type, mode, player, sorted);
-        preview.innerHTML = `<span style="color:${pts >= 0 ? "var(--green)" : "var(--red)"};font-weight:700;font-size:18px">${pts >= 0 ? "+" : ""}${pts} pts</span> — <span>${note}</span>`;
-      };
-
-      document
-        .getElementById("award-player")
-        .addEventListener("change", window.updateSoloState);
-      document
-        .getElementById("award-type")
-        .addEventListener("change", window.updateSoloState);
-      document
-        .getElementById("award-mode")
-        .addEventListener("change", window.updateSoloState);
-
-      window.doAward = async () => {
-        const playerId = document.getElementById("award-player").value;
-        const type = document.getElementById("award-type").value;
-        const mode = document.getElementById("award-mode").value;
-        const msg = document.getElementById("award-msg");
-        msg.className = "msg";
-        if (!playerId) {
-          msg.textContent = "Select a player.";
-          msg.className = "msg err";
-          return;
-        }
-        const player = players.find((p) => p.id === playerId);
-        const { pts } = calcPoints(type, mode, player, sorted);
-        // Update player stat
-        const pRef = doc(db, "players", playerId);
-        const update = {};
-        if (type === "mvp_loss") {
-          update.mvp_loss = (player.mvp_loss || 0) + 1;
-        } else {
-          update[type] = (player[type] || 0) + 1;
-        }
-        await updateDoc(pRef, update);
-        // Log activity
-        await addDoc(actRef, {
-          name: player.name,
-          type,
-          mode,
-          pts,
-          ts: serverTimestamp(),
-        });
-        msg.textContent = `Awarded ${pts >= 0 ? "+" : ""}${pts} pts to ${player.name}`;
-        msg.className = "msg ok";
-        setTimeout(() => {
-          msg.className = "msg";
-        }, 3000);
-      };
-
+      function updateAwardDropdown() {
+        const sel = document.getElementById("award-player");
+        sel.innerHTML =
+          '<option value="">Select...</option>' +
+          sorted
+            .map((p) => `<option value="${p.id}">${p.name}</option>`)
+            .join("");
+      }
       window.addPlayer = async () => {
-        const name = document.getElementById("new-player-name").value.trim();
-        const msg = document.getElementById("player-msg");
-        msg.className = "msg";
-        if (!name) {
-          msg.textContent = "Enter a player name.";
-          msg.className = "msg err";
-          return;
-        }
-        await addDoc(playersRef, {
-          name,
-          mvp: 0,
-          gold: 0,
-          silver: 0,
-          bronze: 0,
-          mvp_loss: 0,
-          createdAt: serverTimestamp(),
-        });
-        await addDoc(actRef, {
-          name,
-          type: "added",
-          mode: "system",
-          pts: 0,
-          ts: serverTimestamp(),
-        });
+        const name = document.getElementById("new-player-name").value;
+        if (name)
+          await addDoc(collection(db, "players"), {
+            name,
+            points: 0,
+            mvp: 0,
+            gold: 0,
+            silver: 0,
+            bronze: 0,
+            mvp_loss: 0,
+          });
         document.getElementById("new-player-name").value = "";
-        msg.textContent = `${name} added!`;
-        msg.className = "msg ok";
-        setTimeout(() => {
-          msg.className = "msg";
-        }, 2500);
       };
-
-      window.removePlayer = async (id, name) => {
-        if (!confirm(`Remove ${name}? This cannot be undone.`)) return;
-        await deleteDoc(doc(db, "players", id));
-        const msg = document.getElementById("player-msg");
-        msg.textContent = `${name} removed.`;
-        msg.className = "msg ok";
-        setTimeout(() => {
-          msg.className = "msg";
-        }, 2500);
-      };
-
-      // Close modal on overlay click
-      document.querySelectorAll(".modal-overlay").forEach((o) =>
-        o.addEventListener("click", (e) => {
-          if (e.target === o) closeModals();
-        }),
-      );
     </script>
   </body>
 </html>
