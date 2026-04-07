@@ -23,104 +23,87 @@
         --green: #3ecf8e;
         --red: #f87171;
         --blue: #60a5fa;
+        --rank1: #f5c542;
+        --rank2: #a8b5c8;
+        --rank3: #cd7f4a;
       }
-
       * {
         box-sizing: border-box;
         margin: 0;
         padding: 0;
       }
-
-      html {
-        scroll-behavior: smooth;
-      }
-
       body {
         background: var(--bg);
         color: var(--text);
         font-family: "Inter", sans-serif;
         min-height: 100vh;
-        line-height: 1.5;
-      }
-
-      /* ── BACKGROUND GRID ── */
-      body::before {
-        content: "";
-        position: fixed;
-        inset: 0;
-        background:
-          linear-gradient(rgba(96, 165, 250, 0.05) 1px, transparent 1px),
-          linear-gradient(90deg, rgba(96, 165, 250, 0.05) 1px, transparent 1px);
-        background-size: 40px 40px;
-        z-index: -1;
       }
 
       /* ── TOP BAR ── */
       .topbar {
         display: flex;
+        align-items: center;
         justify-content: space-between;
-        padding: 14px 24px;
+        padding: 14px 32px;
         background: var(--bg2);
         border-bottom: 1px solid var(--border);
-        position: sticky;
-        top: 0;
       }
-
       .topbar-left {
         display: flex;
-        gap: 12px;
         align-items: center;
+        gap: 14px;
       }
-
       .logo-badge {
-        width: 32px;
-        height: 32px;
+        width: 36px;
+        height: 36px;
         background: var(--gold);
         border-radius: 8px;
         display: flex;
         align-items: center;
         justify-content: center;
-        font-family: "Rajdhani";
+        font-family: "Rajdhani", sans-serif;
         font-weight: 700;
+        font-size: 18px;
         color: #000;
       }
-
       .logo-text {
-        font-family: "Rajdhani";
+        font-family: "Rajdhani", sans-serif;
         font-weight: 700;
-        font-size: 20px;
+        font-size: 22px;
+        letter-spacing: 2px;
+        text-transform: uppercase;
       }
-
       .logo-sub {
-        font-size: 10px;
+        font-size: 11px;
         color: var(--muted);
+        letter-spacing: 1px;
+        text-transform: uppercase;
       }
-
       .topbar-right {
         display: flex;
-        gap: 10px;
         align-items: center;
+        gap: 10px;
       }
-
       .live-badge {
         display: flex;
+        align-items: center;
         gap: 6px;
-        background: rgba(62, 207, 142, 0.1);
+        background: rgba(62, 207, 142, 0.12);
         border: 1px solid rgba(62, 207, 142, 0.3);
         color: var(--green);
-        padding: 4px 10px;
+        font-size: 12px;
+        font-weight: 600;
+        padding: 5px 12px;
         border-radius: 20px;
-        font-size: 11px;
+        letter-spacing: 1px;
       }
-
       .live-dot {
-        width: 6px;
-        height: 6px;
+        width: 7px;
+        height: 7px;
         background: var(--green);
         border-radius: 50%;
         animation: pulse 1.8s infinite;
       }
-
       @keyframes pulse {
         0%,
         100% {
@@ -130,60 +113,91 @@
           opacity: 0.3;
         }
       }
-
-      /* ── BUTTONS ── */
       .btn {
-        padding: 7px 14px;
+        padding: 7px 18px;
         border-radius: 8px;
+        font-size: 13px;
+        font-weight: 500;
+        cursor: pointer;
         border: 1px solid var(--border);
         background: var(--bg3);
         color: var(--text);
-        cursor: pointer;
+        transition: all 0.15s;
       }
-
       .btn:hover {
         background: rgba(255, 255, 255, 0.08);
       }
-
       .btn-primary {
-        color: var(--mvp);
+        background: rgba(176, 124, 255, 0.15);
         border-color: rgba(176, 124, 255, 0.4);
+        color: var(--mvp);
+      }
+      .btn-primary:hover {
+        background: rgba(176, 124, 255, 0.25);
       }
 
-      .btn-danger {
-        color: var(--red);
-      }
-
-      /* ── MAIN ── */
+      /* ── MAIN LAYOUT ── */
       .main {
         max-width: 1100px;
         margin: 0 auto;
-        padding: 24px;
+        padding: 32px 24px;
+      }
+      .section-label {
+        font-size: 11px;
+        letter-spacing: 2px;
+        text-transform: uppercase;
+        color: var(--muted);
+        margin-bottom: 18px;
       }
 
-      /* ── STATS ── */
-      .stats {
-        display: grid;
-        grid-template-columns: repeat(4, 1fr);
-        gap: 16px;
-        margin-bottom: 20px;
+      /* ── POINT LEGEND ── */
+      .legend {
+        display: flex;
+        gap: 10px;
+        flex-wrap: wrap;
+        margin-bottom: 28px;
       }
-
-      .card {
+      .legend-item {
+        display: flex;
+        align-items: center;
+        gap: 6px;
         background: var(--bg2);
         border: 1px solid var(--border);
-        border-radius: 12px;
-        padding: 16px;
+        border-radius: 20px;
+        padding: 5px 14px;
+        font-size: 12px;
       }
-
-      .card span {
-        font-size: 11px;
-        color: var(--muted);
+      .tag {
+        font-size: 10px;
+        font-weight: 700;
+        padding: 2px 7px;
+        border-radius: 5px;
+        letter-spacing: 0.5px;
       }
-
-      .card h2 {
-        margin-top: 6px;
-        font-family: "Rajdhani";
+      .tag-mvp {
+        background: rgba(176, 124, 255, 0.2);
+        color: var(--mvp);
+        border: 1px solid rgba(176, 124, 255, 0.4);
+      }
+      .tag-gold {
+        background: rgba(245, 197, 66, 0.15);
+        color: var(--gold);
+        border: 1px solid rgba(245, 197, 66, 0.35);
+      }
+      .tag-silver {
+        background: rgba(168, 181, 200, 0.15);
+        color: var(--silver);
+        border: 1px solid rgba(168, 181, 200, 0.35);
+      }
+      .tag-bronze {
+        background: rgba(205, 127, 74, 0.15);
+        color: var(--bronze);
+        border: 1px solid rgba(205, 127, 74, 0.35);
+      }
+      .tag-loss {
+        background: rgba(248, 113, 113, 0.12);
+        color: var(--red);
+        border: 1px solid rgba(248, 113, 113, 0.3);
       }
 
       /* ── TABLE ── */
@@ -191,180 +205,413 @@
         background: var(--bg2);
         border: 1px solid var(--border);
         border-radius: 14px;
-        overflow-x: auto;
+        overflow: hidden;
+        margin-bottom: 32px;
       }
-
-      .table-head,
-      .table-row {
-        display: grid;
-        grid-template-columns: 50px 1fr repeat(5, 80px) 100px;
-        padding: 12px 16px;
-        min-width: 900px;
-      }
-
       .table-head {
-        background: rgba(255, 255, 255, 0.02);
-        font-size: 10px;
+        display: grid;
+        grid-template-columns: 56px 1fr 72px 72px 72px 72px 72px 72px 80px;
+        padding: 10px 20px;
+        border-bottom: 1px solid var(--border);
+      }
+      .table-head span {
+        font-size: 11px;
+        letter-spacing: 1px;
         text-transform: uppercase;
         color: var(--muted);
+        text-align: center;
       }
-
+      .table-head span:nth-child(2) {
+        text-align: left;
+      }
+      .table-row {
+        display: grid;
+        grid-template-columns: 56px 1fr 72px 72px 72px 72px 72px 72px 80px;
+        padding: 14px 20px;
+        border-bottom: 1px solid var(--border);
+        align-items: center;
+        transition: background 0.12s;
+      }
+      .table-row:last-child {
+        border-bottom: none;
+      }
       .table-row:hover {
         background: rgba(255, 255, 255, 0.03);
       }
-
+      .rank-badge {
+        width: 32px;
+        height: 32px;
+        border-radius: 50%;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        font-family: "Rajdhani", sans-serif;
+        font-weight: 700;
+        font-size: 15px;
+        margin: auto;
+      }
+      .rank-1 {
+        background: rgba(245, 197, 66, 0.15);
+        color: var(--gold);
+        border: 2px solid rgba(245, 197, 66, 0.5);
+      }
+      .rank-2 {
+        background: rgba(168, 181, 200, 0.12);
+        color: var(--silver);
+        border: 2px solid rgba(168, 181, 200, 0.4);
+      }
+      .rank-3 {
+        background: rgba(205, 127, 74, 0.12);
+        color: var(--bronze);
+        border: 2px solid rgba(205, 127, 74, 0.4);
+      }
+      .rank-n {
+        background: rgba(255, 255, 255, 0.05);
+        color: var(--muted);
+        border: 1px solid var(--border);
+        font-size: 13px;
+      }
       .player-info {
         display: flex;
-        gap: 10px;
         align-items: center;
+        gap: 10px;
       }
-
       .avatar {
-        width: 30px;
-        height: 30px;
+        width: 34px;
+        height: 34px;
         border-radius: 50%;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        font-weight: 700;
+        font-size: 13px;
+        flex-shrink: 0;
       }
-
       .player-name {
         font-weight: 600;
+        font-size: 14px;
+        letter-spacing: 0.5px;
+        text-transform: uppercase;
       }
-
+      .catch-up-badge {
+        font-size: 9px;
+        font-weight: 700;
+        background: rgba(96, 165, 250, 0.15);
+        color: var(--blue);
+        border: 1px solid rgba(96, 165, 250, 0.3);
+        padding: 1px 6px;
+        border-radius: 4px;
+        letter-spacing: 0.5px;
+        margin-left: 6px;
+      }
       .cell {
         text-align: center;
+        font-size: 14px;
         color: var(--muted);
       }
-
       .cell-val {
         color: var(--text);
+        font-weight: 500;
       }
-
       .points-val {
-        font-weight: 700;
-        color: var(--gold);
         text-align: right;
+        font-family: "Rajdhani", sans-serif;
+        font-weight: 700;
+        font-size: 22px;
+      }
+      .pts-top {
+        color: var(--gold);
+      }
+      .pts-3rd {
+        color: var(--bronze);
       }
 
-      /* ── PANELS ── */
+      /* ── BOTTOM PANELS ── */
       .panels {
         display: grid;
         grid-template-columns: 1fr 1fr;
-        gap: 16px;
-        margin-top: 20px;
+        gap: 24px;
       }
-
+      @media (max-width: 680px) {
+        .panels {
+          grid-template-columns: 1fr;
+        }
+      }
       .panel {
         background: var(--bg2);
         border: 1px solid var(--border);
-        border-radius: 12px;
-        padding: 16px;
+        border-radius: 14px;
+        padding: 22px;
       }
-
       .panel-title {
-        font-size: 12px;
+        font-size: 11px;
+        letter-spacing: 2px;
+        text-transform: uppercase;
         color: var(--muted);
-        margin-bottom: 10px;
+        margin-bottom: 16px;
       }
 
-      /* ── FEED ── */
+      /* ── ACTIVITY FEED ── */
+      .feed-dot {
+        width: 8px;
+        height: 8px;
+        background: var(--green);
+        border-radius: 50%;
+        display: inline-block;
+        margin-right: 6px;
+      }
       .feed-item {
         display: flex;
+        align-items: center;
         justify-content: space-between;
+        padding: 9px 0;
+        border-bottom: 1px solid var(--border);
         font-size: 13px;
-        padding: 6px 0;
+        gap: 8px;
       }
-
+      .feed-item:last-child {
+        border-bottom: none;
+      }
       .feed-time {
         color: var(--muted);
+        font-size: 11px;
+        flex-shrink: 0;
       }
-
       .feed-by {
         color: var(--muted);
+        font-size: 11px;
+        flex-shrink: 0;
+      }
+      .feed-action {
+        flex: 1;
       }
 
-      /* ── TAGS ── */
-      .tag {
-        padding: 2px 6px;
-        border-radius: 6px;
+      /* ── CATCH-UP RULES ── */
+      .rules-section {
+        margin-bottom: 14px;
+      }
+      .rules-label {
         font-size: 10px;
+        font-weight: 700;
+        letter-spacing: 1px;
+        text-transform: uppercase;
+        margin-bottom: 8px;
+        padding: 3px 0;
+        border-bottom: 1px solid var(--border);
       }
-
-      .tag-mvp {
-        color: var(--mvp);
-      }
-      .tag-gold {
+      .rules-label.elig {
         color: var(--gold);
+        border-color: rgba(245, 197, 66, 0.2);
       }
-      .tag-silver {
-        color: var(--silver);
-      }
-      .tag-bronze {
-        color: var(--bronze);
-      }
-      .tag-loss {
+      .rules-label.cap-lbl {
         color: var(--red);
+        border-color: rgba(248, 113, 113, 0.2);
       }
-
-      /* ── POINT CARDS ── */
+      .rules-label.pts-lbl {
+        color: var(--blue);
+        border-color: rgba(96, 165, 250, 0.2);
+      }
+      .rules-text {
+        font-size: 12px;
+        color: var(--muted);
+        line-height: 1.6;
+      }
+      .rules-text strong {
+        color: var(--text);
+      }
       .pts-grid {
         display: grid;
-        grid-template-columns: repeat(3, 1fr);
-        gap: 10px;
+        grid-template-columns: 1fr 1fr 1fr;
+        gap: 8px;
+        margin-top: 8px;
       }
-
       .pts-card {
         background: var(--bg3);
         border: 1px solid var(--border);
         border-radius: 8px;
-        padding: 10px;
+        padding: 8px;
         text-align: center;
       }
+      .pts-card .pts-num {
+        font-family: "Rajdhani", sans-serif;
+        font-weight: 700;
+        font-size: 20px;
+      }
+      .pts-card .pts-lbl2 {
+        font-size: 10px;
+        color: var(--muted);
+        text-transform: uppercase;
+        letter-spacing: 0.5px;
+      }
+      .pts-card.mvp .pts-num {
+        color: var(--mvp);
+      }
+      .pts-card.gold .pts-num {
+        color: var(--gold);
+      }
+      .pts-card.silver .pts-num {
+        color: var(--silver);
+      }
+      .pts-card.bronze .pts-num {
+        color: var(--bronze);
+      }
+      .pts-card.loss .pts-num {
+        color: var(--red);
+      }
+      .pts-card.win .pts-num {
+        color: var(--green);
+        font-size: 16px;
+      }
 
-      /* ── MODAL ── */
+      /* ── ADMIN MODAL ── */
       .modal-overlay {
         display: none;
         position: fixed;
         inset: 0;
-        background: rgba(0, 0, 0, 0.85);
-        justify-content: center;
+        background: rgba(0, 0, 0, 0.8);
+        z-index: 100;
         align-items: center;
+        justify-content: center;
       }
-
       .modal-overlay.open {
         display: flex;
       }
-
       .modal {
         background: var(--bg2);
-        border-radius: 12px;
-        padding: 20px;
+        border: 1px solid var(--border);
+        border-radius: 16px;
         width: 100%;
-        max-width: 400px;
+        max-width: 480px;
+        padding: 28px;
+        margin: 16px;
+        max-height: 90vh;
+        overflow-y: auto;
       }
-
-      /* ── MOBILE ── */
-      @media (max-width: 768px) {
-        .stats {
-          grid-template-columns: 1fr 1fr;
-        }
-
-        .panels {
-          grid-template-columns: 1fr;
-        }
-
-        .table-head {
-          display: none;
-        }
-
-        .table-row {
-          display: flex;
-          flex-direction: column;
-          gap: 6px;
-        }
-
-        .table-row div {
-          display: flex;
-          justify-content: space-between;
-        }
+      .modal h2 {
+        font-family: "Rajdhani", sans-serif;
+        font-size: 22px;
+        letter-spacing: 1px;
+        margin-bottom: 20px;
+      }
+      .form-group {
+        margin-bottom: 16px;
+      }
+      .form-group label {
+        display: block;
+        font-size: 12px;
+        color: var(--muted);
+        margin-bottom: 6px;
+        text-transform: uppercase;
+        letter-spacing: 0.5px;
+      }
+      .form-group input,
+      .form-group select {
+        width: 100%;
+        padding: 10px 14px;
+        background: var(--bg3);
+        border: 1px solid var(--border);
+        border-radius: 8px;
+        color: var(--text);
+        font-size: 14px;
+        font-family: "Inter", sans-serif;
+        outline: none;
+      }
+      .form-group input:focus,
+      .form-group select:focus {
+        border-color: rgba(176, 124, 255, 0.5);
+      }
+      .form-row {
+        display: grid;
+        grid-template-columns: 1fr 1fr;
+        gap: 12px;
+      }
+      .modal-actions {
+        display: flex;
+        gap: 10px;
+        justify-content: flex-end;
+        margin-top: 20px;
+      }
+      .msg {
+        font-size: 13px;
+        padding: 8px 12px;
+        border-radius: 8px;
+        margin-bottom: 12px;
+        display: none;
+      }
+      .msg.ok {
+        background: rgba(62, 207, 142, 0.12);
+        color: var(--green);
+        border: 1px solid rgba(62, 207, 142, 0.3);
+        display: block;
+      }
+      .msg.err {
+        background: rgba(248, 113, 113, 0.12);
+        color: var(--red);
+        border: 1px solid rgba(248, 113, 113, 0.3);
+        display: block;
+      }
+      .admin-tabs {
+        display: flex;
+        gap: 2px;
+        margin-bottom: 20px;
+        background: var(--bg3);
+        border-radius: 8px;
+        padding: 3px;
+      }
+      .admin-tab {
+        flex: 1;
+        padding: 8px;
+        border-radius: 6px;
+        font-size: 13px;
+        font-weight: 500;
+        cursor: pointer;
+        text-align: center;
+        color: var(--muted);
+        transition: all 0.15s;
+        border: none;
+        background: transparent;
+      }
+      .admin-tab.active {
+        background: var(--bg2);
+        color: var(--text);
+      }
+      .tab-content {
+        display: none;
+      }
+      .tab-content.active {
+        display: block;
+      }
+      .player-list-item {
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        padding: 10px 0;
+        border-bottom: 1px solid var(--border);
+      }
+      .player-list-item:last-child {
+        border-bottom: none;
+      }
+      .btn-danger {
+        background: rgba(248, 113, 113, 0.1);
+        border-color: rgba(248, 113, 113, 0.3);
+        color: var(--red);
+      }
+      .btn-danger:hover {
+        background: rgba(248, 113, 113, 0.2);
+      }
+      .btn-sm {
+        padding: 4px 12px;
+        font-size: 12px;
+        border-radius: 6px;
+      }
+      select option {
+        background: #1c2030;
+      }
+      #loading {
+        text-align: center;
+        padding: 60px;
+        color: var(--muted);
+        font-size: 14px;
       }
     </style>
   </head>
@@ -386,27 +633,8 @@
       </div>
     </div>
 
-    <div class="stats">
-      <div class="card">
-        <span>Players</span>
-        <h2 id="stat-players">0</h2>
-      </div>
-      <div class="card">
-        <span>Top Score</span>
-        <h2 id="stat-top">0</h2>
-      </div>
-      <div class="card">
-        <span>Leader</span>
-        <h2 id="stat-leader">—</h2>
-      </div>
-      <div class="card">
-        <span>Last Sync</span>
-        <h2 id="stat-sync">--:--</h2>
-      </div>
-    </div>
-
     <!-- MAIN -->
-    <div class="main dashboard">
+    <div class="main">
       <div class="section-label">Leaderboard</div>
 
       <!-- Legend -->
@@ -816,17 +1044,6 @@
           return;
         }
         const rank1pts = sorted[0]?.points || 0;
-        document.getElementById("stat-players").textContent = players.length;
-        document.getElementById("stat-top").textContent =
-          sorted[0]?.points || 0;
-        document.getElementById("stat-leader").textContent =
-          sorted[0]?.name || "—";
-
-        document.getElementById("stat-sync").textContent =
-          new Date().toLocaleTimeString([], {
-            hour: "2-digit",
-            minute: "2-digit",
-          });
         const rank3pts = sorted[2]?.points;
         el.innerHTML = sorted
           .map((p, i) => {
