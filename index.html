@@ -80,12 +80,20 @@
         margin-top: 2px;
       }
 
-      /* ── DASHBOARD (NEW) ── */
       .main {
         max-width: 1100px;
         margin: 0 auto;
         padding: 20px;
       }
+      .section-label {
+        font-size: 10px;
+        letter-spacing: 2px;
+        text-transform: uppercase;
+        color: var(--muted);
+        margin: 24px 0 12px 0;
+      }
+
+      /* ── DASHBOARD CARDS ── */
       .dashboard {
         display: grid;
         grid-template-columns: repeat(4, 1fr);
@@ -118,7 +126,7 @@
         margin-top: 4px;
       }
 
-      /* ── ALERT BAR (NEW) ── */
+      /* ── ALERT BAR ── */
       .alert-bar {
         background: rgba(62, 207, 142, 0.05);
         border: 1px solid rgba(62, 207, 142, 0.2);
@@ -136,18 +144,76 @@
         display: flex;
         animation: slideIn 0.4s ease;
       }
-      @keyframes slideIn {
-        from {
-          transform: translateY(-10px);
-          opacity: 0;
-        }
-        to {
-          transform: translateY(0);
-          opacity: 1;
-        }
+
+      /* ── RULEBOOK / LEGEND ── */
+      .rulebook-container {
+        display: grid;
+        grid-template-columns: 1fr 1fr;
+        gap: 16px;
+        margin-bottom: 24px;
+      }
+      .rule-column {
+        background: var(--bg2);
+        border: 1px solid var(--border);
+        border-radius: 12px;
+        padding: 16px;
+        display: flex;
+        flex-direction: column;
+        gap: 8px;
+      }
+      .rule-column.highlight {
+        border-color: rgba(96, 165, 250, 0.4);
+        background: rgba(96, 165, 250, 0.03);
+      }
+      .rule-header {
+        font-size: 10px;
+        font-weight: 800;
+        letter-spacing: 1.5px;
+        color: var(--muted);
+        text-transform: uppercase;
+        margin-bottom: 4px;
+      }
+      .legend-item {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        font-size: 13px;
+      }
+      .tag {
+        font-size: 10px;
+        font-weight: 700;
+        padding: 2px 7px;
+        border-radius: 5px;
+        min-width: 50px;
+        text-align: center;
+      }
+      .tag-mvp {
+        background: rgba(176, 124, 255, 0.2);
+        color: var(--mvp);
+        border: 1px solid rgba(176, 124, 255, 0.4);
+      }
+      .tag-gold {
+        background: rgba(245, 197, 66, 0.15);
+        color: var(--gold);
+        border: 1px solid rgba(245, 197, 66, 0.35);
+      }
+      .tag-silver {
+        background: rgba(168, 181, 200, 0.15);
+        color: var(--silver);
+        border: 1px solid rgba(168, 181, 200, 0.35);
+      }
+      .tag-bronze {
+        background: rgba(205, 127, 74, 0.15);
+        color: var(--bronze);
+        border: 1px solid rgba(205, 127, 74, 0.35);
+      }
+      .tag-loss {
+        background: rgba(248, 113, 113, 0.12);
+        color: var(--red);
+        border: 1px solid rgba(248, 113, 113, 0.3);
       }
 
-      /* ── TABLE & RESPONSIVENESS ── */
+      /* ── TABLE ── */
       .table-wrap {
         background: var(--bg2);
         border: 1px solid var(--border);
@@ -165,14 +231,14 @@
         .dashboard {
           grid-template-columns: 1fr 1fr;
         }
+        .rulebook-container {
+          grid-template-columns: 1fr;
+        }
         .grid-layout {
-          grid-template-columns: 40px 1fr 60px 70px;
-        } /* Only Rank, Name, Wins, Pts */
+          grid-template-columns: 40px 1fr 60px 75px;
+        }
         .hide-mobile {
           display: none !important;
-        }
-        .card-value {
-          font-size: 22px;
         }
       }
 
@@ -221,11 +287,6 @@
         font-size: 14px;
         text-transform: uppercase;
       }
-      .cell {
-        text-align: center;
-        font-size: 14px;
-        color: var(--muted);
-      }
       .points-val {
         text-align: right;
         font-family: "Rajdhani", sans-serif;
@@ -234,7 +295,7 @@
         color: var(--gold);
       }
 
-      /* ── UI ELEMENTS ── */
+      /* ── ADMIN MODAL ── */
       .btn {
         padding: 8px 16px;
         border-radius: 6px;
@@ -275,6 +336,16 @@
         border: 1px solid var(--border);
         border-radius: 8px;
         outline: none;
+      }
+      @keyframes slideIn {
+        from {
+          transform: translateY(-10px);
+          opacity: 0;
+        }
+        to {
+          transform: translateY(0);
+          opacity: 1;
+        }
       }
     </style>
   </head>
@@ -337,12 +408,53 @@
         <span>⚡</span> <span id="alert-text"></span>
       </div>
 
+      <div class="section-label">Rules & Scoring</div>
+      <div class="rulebook-container">
+        <div class="rule-column">
+          <div class="rule-header">Standard (Group)</div>
+          <div class="legend-item">
+            <span class="tag tag-mvp">MVP</span> <span>+5 pts</span>
+          </div>
+          <div class="legend-item">
+            <span class="tag tag-gold">Gold</span> <span>+4 pts</span>
+          </div>
+          <div class="legend-item">
+            <span class="tag tag-silver">Silver</span> <span>+3 pts</span>
+          </div>
+          <div class="legend-item">
+            <span class="tag tag-bronze">Bronze</span> <span>−1 pt</span>
+          </div>
+          <div class="legend-item">
+            <span class="tag tag-loss">Loss</span> <span>+1 pt</span>
+          </div>
+        </div>
+        <div class="rule-column highlight">
+          <div class="rule-header">Solo Catch-Up</div>
+          <div class="legend-item">
+            <span class="tag tag-mvp">MVP</span> <span>+7 pts</span>
+          </div>
+          <div class="legend-item">
+            <span class="tag tag-gold">Gold</span> <span>+5 pts</span>
+          </div>
+          <div class="legend-item">
+            <span class="tag tag-silver">Silver</span> <span>+4 pts</span>
+          </div>
+          <div class="legend-item">
+            <span class="tag tag-bronze">Bronze</span> <span>0 pts</span>
+          </div>
+          <div class="legend-item">
+            <span class="tag tag-loss">Loss</span> <span>+2 pts</span>
+          </div>
+        </div>
+      </div>
+
+      <div class="section-label">Live Standings</div>
       <div class="table-wrap">
         <div class="table-head grid-layout">
           <span>#</span><span>Player</span> <span class="hide-mobile">MVP</span
-          ><span class="hide-mobile">G</span> <span class="hide-mobile">S</span
-          ><span class="hide-mobile">B</span> <span class="hide-mobile">L</span
-          ><span>Wins</span><span style="text-align: right">Pts</span>
+          ><span class="hide-mobile">G</span><span class="hide-mobile">S</span
+          ><span class="hide-mobile">B</span><span class="hide-mobile">L</span>
+          <span>Wins</span><span style="text-align: right">Pts</span>
         </div>
         <div id="leaderboard"></div>
       </div>
@@ -353,31 +465,26 @@
         <h2 style="margin-bottom: 20px; font-family: Rajdhani">Award Points</h2>
         <label style="font-size: 11px; color: var(--muted)">PLAYER</label>
         <select id="award-player"></select>
-        <label style="font-size: 11px; color: var(--muted)">MEDAL TYPE</label>
+        <label style="font-size: 11px; color: var(--muted)">MEDAL</label>
         <select id="award-type">
-          <option value="mvp">MVP (+5)</option>
-          <option value="gold">Gold (+4)</option>
-          <option value="silver">Silver (+3)</option>
-          <option value="bronze">Bronze (-1)</option>
-          <option value="mvp_loss">MVP Loss (+1)</option>
+          <option value="mvp">MVP</option>
+          <option value="gold">Gold</option>
+          <option value="silver">Silver</option>
+          <option value="bronze">Bronze</option>
+          <option value="mvp_loss">MVP Loss</option>
         </select>
-        <label style="font-size: 11px; color: var(--muted)">SCORING MODE</label>
+        <label style="font-size: 11px; color: var(--muted)">MODE</label>
         <select id="award-mode">
-          <option value="group">Standard (Group)</option>
-          <option value="solo">Solo Catch-Up (Buffed)</option>
+          <option value="group">Standard</option>
+          <option value="solo">Solo Catch-Up</option>
         </select>
-        <div style="display: flex; gap: 10px; margin-top: 10px">
+        <div style="display: flex; gap: 10px">
           <button class="btn" style="flex: 1" onclick="closeModals()">
             Cancel
           </button>
           <button
             class="btn"
-            style="
-              flex: 1;
-              background: var(--blue);
-              border-color: var(--blue);
-              color: #000;
-            "
+            style="flex: 1; background: var(--blue); color: #000"
             onclick="doAward()"
           >
             Confirm
@@ -417,7 +524,6 @@
       });
 
       function updateUI() {
-        // Update Stats
         document.getElementById("stat-count").textContent = players.length;
         document.getElementById("stat-top").textContent =
           sorted[0]?.points || 0;
@@ -429,7 +535,6 @@
             minute: "2-digit",
           });
 
-        // Update Alert
         const alertBar = document.getElementById("alert-bar");
         const last = sorted[sorted.length - 1];
         const gap = (sorted[0]?.points || 0) - (last?.points || 0);
@@ -441,7 +546,6 @@
           alertBar.classList.remove("active");
         }
 
-        // Render Table
         const lb = document.getElementById("leaderboard");
         lb.innerHTML = sorted
           .map(
@@ -479,12 +583,10 @@
         const type = document.getElementById("award-type").value;
         const mode = document.getElementById("award-mode").value;
         const p = players.find((x) => x.id === pId);
-
         const ptsMap =
           mode === "solo"
             ? { mvp: 7, gold: 5, silver: 4, bronze: 0, mvp_loss: 2 }
             : { mvp: 5, gold: 4, silver: 3, bronze: -1, mvp_loss: 1 };
-
         await updateDoc(doc(db, "players", pId), {
           [type]: (p[type] || 0) + 1,
           points: (p.points || 0) + ptsMap[type],
