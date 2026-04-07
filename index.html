@@ -3,295 +3,650 @@
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>Scoreboard Pro — Live Standings</title>
+    <title>SCOREBOARD PRO</title>
     <link
-      href="https://fonts.googleapis.com/css2?family=Rajdhani:wght@500;600;700&family=Inter:wght@400;500;600&display=swap"
+      href="https://fonts.googleapis.com/css2?family=Barlow+Condensed:wght@400;600;700;800;900&family=Barlow:wght@400;500;600&display=swap"
       rel="stylesheet"
     />
     <style>
       :root {
-        --bg: #05070a;
-        --bg2: #0d1117;
-        --bg3: #161b22;
-        --border: rgba(255, 255, 255, 0.05);
-        --text: #e6edf3;
-        --muted: #8b949e;
+        --bg: #060810;
+        --bg2: #0b0f1a;
+        --bg3: #111827;
+        --bg4: #1a2235;
+        --border: rgba(255, 255, 255, 0.06);
+        --border2: rgba(255, 255, 255, 0.12);
+        --text: #e8edf5;
+        --muted: #6b7a99;
         --gold: #f5c542;
         --silver: #a8b5c8;
         --bronze: #cd7f4a;
-        --mvp: #b07cff;
-        --green: #3ecf8e;
+        --mvp: #c084fc;
+        --green: #34d399;
         --red: #f87171;
-        --blue: #58a6ff;
+        --blue: #60a5fa;
+        --cyan: #22d3ee;
+        --accent: #3b82f6;
       }
       * {
         box-sizing: border-box;
         margin: 0;
         padding: 0;
       }
+
       body {
-        background-color: var(--bg);
-        background-image:
-          linear-gradient(rgba(255, 255, 255, 0.02) 1px, transparent 1px),
-          linear-gradient(90deg, rgba(255, 255, 255, 0.02) 1px, transparent 1px);
-        background-size: 40px 40px;
+        background: var(--bg);
         color: var(--text);
-        font-family: "Inter", sans-serif;
+        font-family: "Barlow", sans-serif;
         min-height: 100vh;
+        overflow-x: hidden;
       }
-      .main-container {
-        max-width: 1200px;
+
+      /* Ambient background */
+      body::before {
+        content: "";
+        position: fixed;
+        top: -200px;
+        left: 50%;
+        transform: translateX(-50%);
+        width: 900px;
+        height: 600px;
+        background: radial-gradient(
+          ellipse at center,
+          rgba(59, 130, 246, 0.07) 0%,
+          transparent 70%
+        );
+        pointer-events: none;
+        z-index: 0;
+      }
+
+      .wrap {
+        max-width: 1180px;
         margin: 0 auto;
-        padding: 20px;
+        padding: 24px 20px;
+        position: relative;
+        z-index: 1;
       }
+
+      /* ── HEADER ── */
       .header {
         display: flex;
         align-items: center;
         justify-content: space-between;
-        margin-bottom: 30px;
+        margin-bottom: 28px;
+        padding-bottom: 20px;
+        border-bottom: 1px solid var(--border);
       }
-      .logo-section {
+      .logo {
         display: flex;
         align-items: center;
-        gap: 12px;
+        gap: 14px;
       }
-      .logo-sq {
-        width: 32px;
-        height: 32px;
-        background: var(--gold);
-        border-radius: 6px;
+      .logo-icon {
+        width: 40px;
+        height: 40px;
+        background: linear-gradient(135deg, var(--accent), #1d4ed8);
+        border-radius: 10px;
         display: flex;
         align-items: center;
         justify-content: center;
-        font-weight: 800;
-        color: #000;
+        font-family: "Barlow Condensed";
+        font-weight: 900;
+        font-size: 22px;
+        color: #fff;
+        box-shadow: 0 0 20px rgba(59, 130, 246, 0.4);
       }
       .logo-text h1 {
-        font-family: "Rajdhani";
-        font-size: 24px;
-        letter-spacing: 2px;
+        font-family: "Barlow Condensed";
+        font-size: 26px;
+        font-weight: 900;
+        letter-spacing: 3px;
         line-height: 1;
+        color: #fff;
       }
       .logo-text p {
         font-size: 10px;
         color: var(--muted);
+        letter-spacing: 2px;
+        margin-top: 2px;
+      }
+      .header-right {
+        display: flex;
+        align-items: center;
+        gap: 12px;
+      }
+      .live-dot {
+        display: flex;
+        align-items: center;
+        gap: 6px;
+        font-size: 11px;
+        font-weight: 700;
+        color: var(--green);
         letter-spacing: 1px;
       }
+      .live-dot span {
+        width: 7px;
+        height: 7px;
+        background: var(--green);
+        border-radius: 50%;
+        animation: pulse 1.8s ease-in-out infinite;
+        box-shadow: 0 0 6px var(--green);
+      }
+      @keyframes pulse {
+        0%,
+        100% {
+          opacity: 1;
+          transform: scale(1);
+        }
+        50% {
+          opacity: 0.5;
+          transform: scale(1.3);
+        }
+      }
+
+      /* ── BUTTONS ── */
+      .btn {
+        padding: 9px 18px;
+        border-radius: 8px;
+        font-size: 12px;
+        font-weight: 700;
+        cursor: pointer;
+        border: 1px solid var(--border2);
+        background: var(--bg3);
+        color: var(--text);
+        letter-spacing: 0.5px;
+        transition: all 0.2s;
+        font-family: "Barlow";
+      }
+      .btn:hover {
+        background: var(--bg4);
+        border-color: rgba(255, 255, 255, 0.2);
+      }
+      .btn-primary {
+        background: var(--accent);
+        border-color: var(--accent);
+        color: #fff;
+      }
+      .btn-primary:hover {
+        background: #2563eb;
+      }
+      .btn-google {
+        background: #fff;
+        color: #333;
+        border: none;
+        display: flex;
+        align-items: center;
+        gap: 10px;
+        padding: 10px 20px;
+        font-size: 14px;
+      }
+      .btn-google:hover {
+        background: #f1f3f4;
+      }
+      .btn-danger {
+        background: rgba(248, 113, 113, 0.1);
+        border-color: rgba(248, 113, 113, 0.3);
+        color: var(--red);
+      }
+      .btn-danger:hover {
+        background: rgba(248, 113, 113, 0.2);
+      }
+
+      /* ── ALERT ── */
+      .alert {
+        display: none;
+        align-items: center;
+        gap: 10px;
+        background: rgba(52, 211, 153, 0.06);
+        border: 1px solid rgba(52, 211, 153, 0.2);
+        border-radius: 10px;
+        padding: 12px 18px;
+        color: var(--green);
+        font-size: 13px;
+        font-weight: 600;
+        margin-bottom: 20px;
+      }
+
+      /* ── STATS GRID ── */
       .stats-grid {
         display: grid;
         grid-template-columns: repeat(4, 1fr);
-        gap: 15px;
-        margin-bottom: 15px;
+        gap: 14px;
+        margin-bottom: 28px;
       }
       .stat-card {
         background: var(--bg2);
         border: 1px solid var(--border);
-        padding: 20px;
-        border-radius: 8px;
+        border-radius: 10px;
+        padding: 20px 22px;
         position: relative;
         overflow: hidden;
       }
-      .stat-card::after {
+      .stat-card::before {
         content: "";
         position: absolute;
         top: 0;
         left: 0;
-        width: 100%;
+        right: 0;
         height: 2px;
-        background: var(--blue);
-        opacity: 0.5;
+        background: linear-gradient(90deg, var(--accent), transparent);
       }
       .stat-label {
         font-size: 10px;
         color: var(--muted);
         text-transform: uppercase;
-        margin-bottom: 8px;
+        letter-spacing: 1.5px;
         font-weight: 700;
-        letter-spacing: 1px;
+        margin-bottom: 8px;
       }
       .stat-value {
-        font-family: "Rajdhani";
-        font-size: 28px;
-        font-weight: 700;
+        font-family: "Barlow Condensed";
+        font-size: 30px;
+        font-weight: 800;
         color: #fff;
+        line-height: 1;
       }
-      .alert-banner {
-        background: rgba(62, 207, 142, 0.03);
-        border: 1px solid rgba(62, 207, 142, 0.2);
-        border-radius: 8px;
-        padding: 12px 20px;
-        margin-bottom: 30px;
-        display: none;
+      .stat-sub {
+        font-size: 10px;
+        color: var(--muted);
+        margin-top: 4px;
+      }
+
+      /* ── SECTION HEADER ── */
+      .sec-head {
+        display: flex;
         align-items: center;
-        gap: 10px;
-        color: var(--green);
-        font-size: 13px;
-        font-weight: 500;
+        justify-content: space-between;
+        margin-bottom: 14px;
       }
-      .section-title {
-        font-size: 11px;
+      .sec-title {
+        font-size: 10px;
         color: var(--muted);
         letter-spacing: 2px;
         text-transform: uppercase;
-        margin-bottom: 15px;
         font-weight: 700;
       }
-      .medal-legend {
+
+      /* ── LEGEND ── */
+      .legend {
         display: flex;
         flex-wrap: wrap;
-        gap: 10px;
+        gap: 8px;
         margin-bottom: 20px;
       }
-      .badge {
-        padding: 4px 12px;
-        border-radius: 20px;
-        font-size: 11px;
-        font-weight: 700;
-        border: 1px solid var(--border);
+      .leg-badge {
         display: flex;
         align-items: center;
-        gap: 6px;
+        gap: 7px;
+        padding: 5px 12px;
+        border-radius: 20px;
         background: rgba(255, 255, 255, 0.03);
+        border: 1px solid var(--border);
+        font-size: 11px;
+        font-weight: 700;
+        color: var(--muted);
       }
+      .leg-dot {
+        width: 8px;
+        height: 8px;
+        border-radius: 50%;
+      }
+      .leg-pts {
+        color: var(--text);
+        margin-left: 4px;
+      }
+
+      /* ── TABLE ── */
       .table-box {
         background: var(--bg2);
         border: 1px solid var(--border);
         border-radius: 12px;
         overflow: hidden;
-        margin-bottom: 30px;
+        margin-bottom: 28px;
       }
       .grid-row {
         display: grid;
-        grid-template-columns: 50px 1fr 60px 60px 60px 60px 60px 70px 80px;
+        grid-template-columns: 54px 1fr 64px 64px 64px 64px 64px 72px 90px;
         align-items: center;
-        padding: 15px 25px;
+        padding: 0 20px;
       }
-      .table-header {
+      .th {
+        padding: 13px 20px;
         border-bottom: 1px solid var(--border);
         font-size: 10px;
         color: var(--muted);
+        letter-spacing: 1.5px;
         text-transform: uppercase;
         font-weight: 700;
       }
-      .player-row {
+      .tr {
         border-bottom: 1px solid var(--border);
-        font-size: 14px;
-        transition: background 0.2s;
+        padding-top: 14px;
+        padding-bottom: 14px;
+        transition: background 0.15s;
+        cursor: default;
       }
-      .player-row:hover {
-        background: rgba(255, 255, 255, 0.01);
+      .tr:last-child {
+        border-bottom: none;
       }
-      .rank-circle {
-        width: 30px;
-        height: 30px;
+      .tr:hover {
+        background: rgba(255, 255, 255, 0.015);
+      }
+      .tr.rank-1-row {
+        background: rgba(245, 197, 66, 0.03);
+      }
+      .tr.rank-1-row:hover {
+        background: rgba(245, 197, 66, 0.05);
+      }
+
+      .rank-num {
+        width: 32px;
+        height: 32px;
         border-radius: 50%;
-        border: 1px solid var(--border);
+        border: 1.5px solid var(--border2);
         display: flex;
         align-items: center;
         justify-content: center;
-        font-size: 12px;
-        font-weight: 700;
+        font-size: 13px;
+        font-weight: 800;
+        font-family: "Barlow Condensed";
+        color: var(--muted);
       }
-      .rank-1 {
-        color: var(--gold);
+      .rank-num.r1 {
         border-color: var(--gold);
-        background: rgba(245, 197, 66, 0.05);
+        color: var(--gold);
+        background: rgba(245, 197, 66, 0.08);
+      }
+      .rank-num.r2 {
+        border-color: var(--silver);
+        color: var(--silver);
+      }
+      .rank-num.r3 {
+        border-color: var(--bronze);
+        color: var(--bronze);
+      }
+
+      .p-avatar {
+        width: 28px;
+        height: 28px;
+        border-radius: 50%;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        font-size: 11px;
+        font-weight: 800;
+        color: #fff;
+        flex-shrink: 0;
+      }
+      .p-info {
+        display: flex;
+        align-items: center;
+        gap: 10px;
       }
       .p-name {
-        font-weight: 600;
+        font-size: 14px;
+        font-weight: 700;
+        letter-spacing: 0.5px;
         text-transform: uppercase;
       }
-      .p-pts {
-        text-align: right;
-        color: var(--gold);
-        font-family: "Rajdhani";
-        font-size: 24px;
-        font-weight: 700;
+      .p-sub {
+        font-size: 10px;
+        color: var(--muted);
+        margin-top: 1px;
       }
+
+      .cell-num {
+        text-align: center;
+        font-family: "Barlow Condensed";
+        font-size: 16px;
+        font-weight: 700;
+        color: var(--muted);
+      }
+      .cell-num.has {
+        color: var(--text);
+      }
+      .cell-pts {
+        text-align: right;
+        font-family: "Barlow Condensed";
+        font-size: 26px;
+        font-weight: 900;
+        color: var(--gold);
+      }
+      .cell-pts.p2 {
+        color: var(--silver);
+      }
+      .cell-pts.p3 {
+        color: var(--bronze);
+      }
+      .cell-pts.pn {
+        color: var(--text);
+      }
+
+      /* ── FOOTER GRID ── */
       .footer-grid {
         display: grid;
         grid-template-columns: 1fr 1fr;
-        gap: 30px;
+        gap: 24px;
       }
-      .feed-box,
-      .rules-box {
+
+      .panel {
         background: var(--bg2);
         border: 1px solid var(--border);
         border-radius: 12px;
-        padding: 24px;
+        padding: 22px;
       }
+
+      /* Activity feed */
       .feed-item {
         display: flex;
-        justify-content: space-between;
-        font-size: 12px;
+        align-items: center;
+        gap: 10px;
         padding: 10px 0;
-        border-bottom: 1px solid rgba(255, 255, 255, 0.02);
+        border-bottom: 1px solid var(--border);
+        font-size: 12px;
+      }
+      .feed-item:last-child {
+        border-bottom: none;
       }
       .feed-time {
         color: var(--muted);
-        width: 60px;
+        min-width: 42px;
+        font-size: 11px;
       }
-      .feed-desc {
+      .feed-badge {
+        padding: 2px 8px;
+        border-radius: 4px;
+        font-size: 10px;
+        font-weight: 800;
+        font-family: "Barlow Condensed";
+        letter-spacing: 0.5px;
+      }
+      .feed-name {
+        font-weight: 600;
         flex: 1;
-        padding: 0 15px;
       }
-      .modal-overlay {
+      .feed-pts {
+        font-weight: 700;
+        color: var(--green);
+        font-family: "Barlow Condensed";
+        font-size: 14px;
+      }
+      .feed-mode {
+        font-size: 9px;
+        color: var(--muted);
+      }
+
+      /* Rules */
+      .rules-section {
+        margin-bottom: 16px;
+      }
+      .rules-section:last-child {
+        margin-bottom: 0;
+      }
+      .rules-section h3 {
+        font-size: 10px;
+        letter-spacing: 2px;
+        text-transform: uppercase;
+        color: var(--muted);
+        font-weight: 700;
+        margin-bottom: 10px;
+        padding-bottom: 6px;
+        border-bottom: 1px solid var(--border);
+      }
+      .rules-section p {
+        font-size: 12px;
+        color: var(--muted);
+        line-height: 1.7;
+        margin-bottom: 6px;
+      }
+      .rules-section strong {
+        color: var(--text);
+      }
+      .pts-grid {
+        display: grid;
+        grid-template-columns: 1fr 1fr;
+        gap: 6px;
+        margin-top: 8px;
+      }
+      .pts-pill {
+        background: var(--bg3);
+        border: 1px solid var(--border);
+        border-radius: 6px;
+        padding: 6px 10px;
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        font-size: 11px;
+      }
+      .pts-pill span:last-child {
+        font-weight: 800;
+        font-family: "Barlow Condensed";
+        font-size: 14px;
+      }
+
+      /* ── MODALS ── */
+      .overlay {
         display: none;
         position: fixed;
         inset: 0;
-        background: rgba(0, 0, 0, 0.8);
-        z-index: 100;
+        background: rgba(0, 0, 0, 0.75);
+        z-index: 200;
         align-items: center;
         justify-content: center;
         padding: 20px;
+        backdrop-filter: blur(4px);
       }
-      .modal-overlay.open {
+      .overlay.open {
         display: flex;
       }
       .modal {
         background: var(--bg2);
-        border: 1px solid var(--border);
-        border-radius: 12px;
+        border: 1px solid var(--border2);
+        border-radius: 14px;
         width: 100%;
-        max-width: 400px;
-        padding: 25px;
+        max-width: 420px;
+        padding: 28px;
+        animation: slideUp 0.25s ease;
       }
-      input {
-        width: 100%;
-        padding: 12px;
-        margin-bottom: 15px;
-        background: var(--bg3);
-        color: #fff;
-        border: 1px solid var(--border);
-        border-radius: 6px;
-        outline: none;
+      @keyframes slideUp {
+        from {
+          transform: translateY(20px);
+          opacity: 0;
+        }
+        to {
+          transform: translateY(0);
+          opacity: 1;
+        }
       }
-      label {
+      .modal h2 {
+        font-family: "Barlow Condensed";
+        font-size: 22px;
+        font-weight: 800;
+        letter-spacing: 1px;
+        margin-bottom: 6px;
+      }
+      .modal p.sub {
+        font-size: 12px;
+        color: var(--muted);
+        margin-bottom: 22px;
+      }
+      .field {
+        margin-bottom: 16px;
+      }
+      .field label {
         font-size: 10px;
         color: var(--muted);
+        letter-spacing: 1.5px;
         text-transform: uppercase;
-        margin-bottom: 5px;
-        display: block;
         font-weight: 700;
+        display: block;
+        margin-bottom: 6px;
       }
-      .btn {
+      .field input,
+      .field select {
+        width: 100%;
+        padding: 11px 14px;
+        background: var(--bg3);
+        border: 1px solid var(--border2);
+        color: var(--text);
+        border-radius: 8px;
+        outline: none;
+        font-size: 14px;
+        font-family: "Barlow";
+        transition: border-color 0.2s;
+      }
+      .field input:focus,
+      .field select:focus {
+        border-color: var(--accent);
+      }
+      .modal-btns {
+        display: flex;
+        gap: 10px;
+        margin-top: 20px;
+      }
+      .modal-btns .btn {
+        flex: 1;
+        text-align: center;
+      }
+      .err {
+        color: var(--red);
+        font-size: 12px;
+        margin-top: 10px;
+        min-height: 18px;
+      }
+
+      /* Score preview */
+      .score-preview {
         background: var(--bg3);
         border: 1px solid var(--border);
-        color: var(--text);
-        padding: 8px 16px;
-        border-radius: 6px;
-        cursor: pointer;
-        font-size: 12px;
-        font-weight: 600;
+        border-radius: 8px;
+        padding: 12px 16px;
+        margin-top: 12px;
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        font-size: 13px;
       }
-      .btn-primary {
-        background: var(--blue);
-        color: #000;
-        border: none;
+      .score-preview .pts-big {
+        font-family: "Barlow Condensed";
+        font-size: 22px;
+        font-weight: 800;
+        color: var(--green);
       }
-      @media (max-width: 850px) {
+      .score-preview .pts-neg {
+        color: var(--red);
+      }
+
+      /* Google icon */
+      .g-icon {
+        width: 18px;
+        height: 18px;
+      }
+
+      /* ── RESPONSIVE ── */
+      @media (max-width: 860px) {
         .grid-row {
-          grid-template-columns: 40px 1fr 60px 75px;
+          grid-template-columns: 44px 1fr 60px 90px;
         }
         .hide-mob {
           display: none !important;
@@ -302,61 +657,56 @@
         .footer-grid {
           grid-template-columns: 1fr;
         }
-        .stat-value {
-          font-size: 22px;
+      }
+      @media (max-width: 500px) {
+        .stats-grid {
+          grid-template-columns: 1fr 1fr;
         }
       }
     </style>
   </head>
   <body>
-    <div class="main-container">
+    <div class="wrap">
+      <!-- Header -->
       <div class="header">
-        <div class="logo-section">
-          <div class="logo-sq">S</div>
+        <div class="logo">
+          <div class="logo-icon">S</div>
           <div class="logo-text">
             <h1>SCOREBOARD</h1>
             <p>LIVE RANKINGS</p>
           </div>
         </div>
-        <div style="display: flex; align-items: center; gap: 15px">
-          <div
-            style="
-              color: var(--green);
-              font-size: 11px;
-              font-weight: 700;
-              display: flex;
-              align-items: center;
-              gap: 6px;
-            "
-          >
-            <span
-              style="
-                width: 6px;
-                height: 6px;
-                background: var(--green);
-                border-radius: 50%;
-              "
-            ></span>
-            LIVE
-          </div>
-          <button
-            class="btn"
-            id="admin-button"
-            style="display: none"
-            onclick="openAdmin()"
-          >
-            Admin
+        <div class="header-right">
+          <div class="live-dot"><span></span> LIVE</div>
+          <button class="btn" id="login-btn" onclick="openLogin()">
+            Admin Login
           </button>
-          <button class="btn" id="login-button" onclick="openLoginModal()">
-            Admin
+          <button
+            class="btn btn-danger"
+            id="logout-btn"
+            style="display: none"
+            onclick="doLogout()"
+          >
+            Sign Out
+          </button>
+          <button
+            class="btn btn-primary"
+            id="award-btn"
+            style="display: none"
+            onclick="openAward()"
+          >
+            ＋ Award Points
           </button>
         </div>
       </div>
 
-      <div class="alert-banner" id="catchup-alert">
-        <span>⚡</span> <span id="alert-msg"></span>
+      <!-- Alert -->
+      <div class="alert" id="catchup-alert">
+        <span style="font-size: 16px">⚡</span>
+        <span id="alert-msg"></span>
       </div>
 
+      <!-- Stats -->
       <div class="stats-grid">
         <div class="stat-card">
           <div class="stat-label">Players</div>
@@ -368,191 +718,247 @@
         </div>
         <div class="stat-card">
           <div class="stat-label">Leader</div>
-          <div class="stat-value" id="stat-leader">—</div>
+          <div
+            class="stat-value"
+            id="stat-leader"
+            style="font-size: 20px; line-height: 1.4"
+          >
+            —
+          </div>
         </div>
         <div class="stat-card">
-          <div class="stat-label">Last Sync</div>
+          <div class="stat-label">Last Update</div>
           <div class="stat-value" id="stat-time">--:--</div>
-          <p style="font-size: 9px; color: var(--muted); margin-top: 4px">
-            AUTO · 15S
-          </p>
+          <div class="stat-sub">AUTO · LIVE</div>
         </div>
       </div>
 
-      <div class="section-title">Leaderboard</div>
-      <div class="medal-legend">
-        <div class="badge">
-          <span
-            style="
-              background: var(--mvp);
-              color: #000;
-              padding: 1px 4px;
-              border-radius: 3px;
-              font-size: 9px;
-            "
-            >MVP</span
-          >
-          +7 pts
+      <!-- Leaderboard -->
+      <div class="sec-head">
+        <div class="sec-title">Leaderboard</div>
+      </div>
+
+      <div class="legend">
+        <div class="leg-badge">
+          <div class="leg-dot" style="background: var(--mvp)"></div>
+          MVP<span class="leg-pts">+5</span>
         </div>
-        <div class="badge">
-          <span
-            style="
-              background: var(--gold);
-              color: #000;
-              padding: 1px 4px;
-              border-radius: 3px;
-              font-size: 9px;
-            "
-            >Gold</span
-          >
-          +5 pts
+        <div class="leg-badge">
+          <div class="leg-dot" style="background: var(--gold)"></div>
+          Gold<span class="leg-pts">+4</span>
         </div>
-        <div class="badge">
-          <span
-            style="
-              background: var(--silver);
-              color: #000;
-              padding: 1px 4px;
-              border-radius: 3px;
-              font-size: 9px;
-            "
-            >Silver</span
-          >
-          +4 pts
+        <div class="leg-badge">
+          <div class="leg-dot" style="background: var(--silver)"></div>
+          Silver<span class="leg-pts">+3</span>
         </div>
-        <div class="badge">
-          <span
-            style="
-              background: var(--bronze);
-              color: #000;
-              padding: 1px 4px;
-              border-radius: 3px;
-              font-size: 9px;
-            "
-            >Bronze</span
-          >
-          +2 pts
+        <div class="leg-badge">
+          <div class="leg-dot" style="background: var(--bronze)"></div>
+          Bronze<span class="leg-pts">−1</span>
         </div>
-        <div class="badge">
-          <span
-            style="
-              background: var(--red);
-              color: #000;
-              padding: 1px 4px;
-              border-radius: 3px;
-              font-size: 9px;
-            "
-            >MVP Loss</span
+        <div class="leg-badge">
+          <div class="leg-dot" style="background: var(--red)"></div>
+          MVP Loss<span class="leg-pts">+1</span>
+        </div>
+        <div class="leg-badge" style="border-color: rgba(192, 132, 252, 0.3)">
+          <div class="leg-dot" style="background: var(--cyan)"></div>
+          Solo Buff<span class="leg-pts" style="color: var(--cyan)"
+            >+2 bonus</span
           >
-          +1 pt
         </div>
       </div>
 
       <div class="table-box">
-        <div class="grid-row table-header">
+        <div class="grid-row th">
           <span>#</span><span>Player</span>
           <span class="hide-mob" style="text-align: center">MVP</span>
           <span class="hide-mob" style="text-align: center">G</span>
           <span class="hide-mob" style="text-align: center">S</span>
           <span class="hide-mob" style="text-align: center">B</span>
-          <span class="hide-mob" style="text-align: center">L</span>
+          <span class="hide-mob" style="text-align: center">Loss</span>
           <span style="text-align: center">Wins</span>
-          <span style="text-align: right">Points</span>
+          <span style="text-align: right">PTS</span>
         </div>
-        <div id="leaderboard-body"></div>
+        <div id="lb-body"></div>
       </div>
 
+      <!-- Footer grid -->
       <div class="footer-grid">
-        <div class="feed-box">
-          <div class="section-title">Activity Feed</div>
-          <div id="activity-feed"></div>
+        <div class="panel">
+          <div class="sec-title" style="margin-bottom: 14px">Activity Feed</div>
+          <div id="activity-feed">
+            <div style="color: var(--muted); font-size: 12px">
+              No activity yet.
+            </div>
+          </div>
         </div>
-        <div class="rules-box">
-          <div class="section-title">Solo Catch-Up Rules</div>
-          <div style="font-size: 12px; color: var(--muted); line-height: 1.6">
-            <p style="margin-bottom: 10px">
-              <strong>ELIGIBILITY:</strong> A player may only earn solo catch-up
-              points if they are <strong>15 or more points</strong> behind the
-              #1 ranked player.
-            </p>
-            <p style="margin-bottom: 15px">
-              <strong>CAP:</strong> Solo points stop the moment the player's
-              total reaches <strong>#3 player's current score.</strong> Excess
-              is capped automatically.
-            </p>
-            <div
-              style="display: grid; grid-template-columns: 1fr 1fr; gap: 10px"
-            >
-              <div class="badge" style="justify-content: space-between">
-                <span>MVP</span> <span style="color: #fff">+7</span>
+        <div class="panel">
+          <div class="sec-title" style="margin-bottom: 14px">Scoring Rules</div>
+
+          <div class="rules-section">
+            <h3>Group Scoring (3+ Players)</h3>
+            <div class="pts-grid">
+              <div class="pts-pill">
+                <span style="color: var(--mvp)">MVP Win</span
+                ><span style="color: var(--mvp)">+5</span>
               </div>
-              <div class="badge" style="justify-content: space-between">
-                <span>Gold</span> <span style="color: #fff">+5</span>
+              <div class="pts-pill">
+                <span style="color: var(--gold)">Gold Win</span
+                ><span style="color: var(--gold)">+4</span>
               </div>
-              <div class="badge" style="justify-content: space-between">
-                <span>Silver</span> <span style="color: #fff">+4</span>
+              <div class="pts-pill">
+                <span style="color: var(--silver)">Silver Win</span
+                ><span style="color: var(--silver)">+3</span>
               </div>
-              <div class="badge" style="justify-content: space-between">
-                <span>Loss</span> <span style="color: #fff">+2</span>
+              <div class="pts-pill">
+                <span style="color: var(--bronze)">Bronze Win</span
+                ><span style="color: var(--bronze)">−1</span>
+              </div>
+              <div class="pts-pill">
+                <span style="color: var(--red)">MVP Loss</span
+                ><span style="color: var(--red)">+1</span>
+              </div>
+            </div>
+          </div>
+
+          <div class="rules-section" style="margin-top: 14px">
+            <h3>Solo Catch-Up Buff</h3>
+            <p><strong>Eligibility:</strong> 15+ pts behind #1 player</p>
+            <p><strong>Cap:</strong> Stops when you reach #3 player's score</p>
+            <div class="pts-grid">
+              <div class="pts-pill">
+                <span style="color: var(--mvp)">MVP Win</span
+                ><span style="color: var(--cyan)">+7</span>
+              </div>
+              <div class="pts-pill">
+                <span style="color: var(--gold)">Gold Win</span
+                ><span style="color: var(--cyan)">+5</span>
+              </div>
+              <div class="pts-pill">
+                <span style="color: var(--silver)">Silver Win</span
+                ><span style="color: var(--cyan)">+4</span>
+              </div>
+              <div class="pts-pill">
+                <span style="color: var(--bronze)">Bronze Win</span
+                ><span style="color: var(--cyan)">0</span>
+              </div>
+              <div class="pts-pill">
+                <span style="color: var(--red)">MVP Loss</span
+                ><span style="color: var(--cyan)">+2</span>
+              </div>
+            </div>
+          </div>
+
+          <div class="rules-section" style="margin-top: 14px">
+            <h3>Tied Scores — Solo Mode</h3>
+            <p>If all scores are tied:</p>
+            <div class="pts-grid">
+              <div class="pts-pill">
+                <span style="color: var(--mvp)">MVP W/L</span><span>+2</span>
+              </div>
+              <div class="pts-pill">
+                <span style="color: var(--gold)">Gold W/L</span><span>+1</span>
+              </div>
+              <div class="pts-pill">
+                <span style="color: var(--silver)">Silver W/L</span
+                ><span>+1</span>
+              </div>
+              <div class="pts-pill">
+                <span style="color: var(--bronze)">Bronze W/L</span
+                ><span style="color: var(--red)">−1</span>
               </div>
             </div>
           </div>
         </div>
       </div>
     </div>
+    <!-- /wrap -->
 
     <!-- Login Modal -->
-    <div class="modal-overlay" id="login-modal">
+    <div class="overlay" id="login-modal">
       <div class="modal">
-        <h2 style="margin-bottom: 20px; font-family: Rajdhani">Admin Login</h2>
-        <label>Email</label>
-        <input type="email" id="login-email" placeholder="Enter admin email" />
-        <label>Password</label>
-        <input
-          type="password"
-          id="login-password"
-          placeholder="Enter password"
-        />
-        <div style="display: flex; gap: 10px; margin-top: 15px">
-          <button class="btn" style="flex: 1" onclick="closeLoginModal()">
+        <h2>Admin Login</h2>
+        <p class="sub">Sign in with your Google account to manage scores.</p>
+        <button
+          class="btn btn-google"
+          style="
+            width: 100%;
+            justify-content: center;
+            border-radius: 8px;
+            font-family: &quot;Barlow&quot;;
+            font-weight: 600;
+          "
+          onclick="signInGoogle()"
+        >
+          <svg class="g-icon" viewBox="0 0 48 48">
+            <path
+              fill="#EA4335"
+              d="M24 9.5c3.2 0 5.8 1.1 7.9 2.9l5.9-5.9C34.1 3.3 29.4 1 24 1 15.2 1 7.7 6.2 4.1 13.7l6.9 5.3C12.8 13.5 17.9 9.5 24 9.5z"
+            />
+            <path
+              fill="#4285F4"
+              d="M46.6 24.5c0-1.6-.1-3.1-.4-4.5H24v8.5h12.7c-.6 3-2.3 5.6-4.8 7.3l7.5 5.8c4.3-4 6.8-9.9 7.2-17.1z"
+            />
+            <path
+              fill="#FBBC05"
+              d="M11 28.2c-.6-1.7-.9-3.5-.9-5.3s.3-3.6.9-5.3L4.1 12.3A22.9 22.9 0 001 22.9c0 3.8.9 7.4 2.4 10.6l7.6-5.3z"
+            />
+            <path
+              fill="#34A853"
+              d="M24 46c5.4 0 10-.2 13.5-2.9l-7.5-5.8c-1.7 1.1-3.9 1.7-6 1.7-6.1 0-11.2-4-13-9.8l-6.9 5.3C7.7 41.8 15.2 47 24 47z"
+            />
+          </svg>
+          Continue with Google
+        </button>
+        <div class="modal-btns" style="margin-top: 16px">
+          <button
+            class="btn"
+            style="width: 100%"
+            onclick="closeModal('login-modal')"
+          >
             Cancel
           </button>
-          <button class="btn btn-primary" style="flex: 1" onclick="login()">
-            Login
-          </button>
         </div>
-        <p
-          id="login-error"
-          style="color: var(--red); margin-top: 10px; font-size: 12px"
-        ></p>
+        <div class="err" id="login-err"></div>
       </div>
     </div>
 
-    <!-- Admin Modal -->
-    <div class="modal-overlay" id="admin-modal">
+    <!-- Award Modal -->
+    <div class="overlay" id="award-modal">
       <div class="modal">
-        <h2 style="margin-bottom: 20px; font-family: Rajdhani">Award Points</h2>
-        <label>Select Player</label>
-        <select id="award-player"></select>
-        <label>Award Type</label>
-        <select id="award-type">
-          <option value="mvp">MVP</option>
-          <option value="gold">Gold</option>
-          <option value="silver">Silver</option>
-          <option value="bronze">Bronze</option>
-          <option value="mvp_loss">MVP Loss</option>
-        </select>
-        <label>Scoring Mode</label>
-        <select id="award-mode">
-          <option value="group">Standard (Group)</option>
-          <option value="solo">Solo Catch-Up (Buffed)</option>
-        </select>
-        <div style="display: flex; gap: 10px; margin-top: 10px">
-          <button class="btn" style="flex: 1" onclick="closeModals()">
+        <h2>Award Points</h2>
+        <p class="sub">Select player, type, and scoring mode.</p>
+        <div class="field">
+          <label>Player</label>
+          <select id="aw-player"></select>
+        </div>
+        <div class="field">
+          <label>Award Type</label>
+          <select id="aw-type" onchange="updatePreview()">
+            <option value="mvp">MVP (Win)</option>
+            <option value="gold">Gold (Win)</option>
+            <option value="silver">Silver (Win)</option>
+            <option value="bronze">Bronze (Win)</option>
+            <option value="mvp_loss">MVP Loss</option>
+          </select>
+        </div>
+        <div class="field">
+          <label>Scoring Mode</label>
+          <select id="aw-mode" onchange="updatePreview()">
+            <option value="group">Standard Group</option>
+            <option value="solo">Solo Catch-Up (Buff)</option>
+            <option value="tied">Tied Scores — Solo</option>
+          </select>
+        </div>
+        <div class="score-preview" id="score-preview">
+          <span>Points to award:</span>
+          <span class="pts-big" id="preview-pts">+5</span>
+        </div>
+        <div class="modal-btns">
+          <button class="btn" onclick="closeModal('award-modal')">
             Cancel
           </button>
-          <button class="btn btn-primary" style="flex: 1" onclick="doAward()">
-            Confirm
+          <button class="btn btn-primary" onclick="doAward()">
+            Confirm Award
           </button>
         </div>
       </div>
@@ -574,7 +980,8 @@
       } from "https://www.gstatic.com/firebasejs/10.12.0/firebase-firestore.js";
       import {
         getAuth,
-        signInWithEmailAndPassword,
+        GoogleAuthProvider,
+        signInWithPopup,
         onAuthStateChanged,
         signOut,
       } from "https://www.gstatic.com/firebasejs/10.12.0/firebase-auth.js";
@@ -591,56 +998,106 @@
       const app = initializeApp(firebaseConfig);
       const db = getFirestore(app);
       const auth = getAuth(app);
+      const provider = new GoogleAuthProvider();
+
       let players = [];
 
-      // Check auth state
+      // ── SCORING TABLES ──
+      const PTS = {
+        group: { mvp: 5, gold: 4, silver: 3, bronze: -1, mvp_loss: 1 },
+        solo: { mvp: 7, gold: 5, silver: 4, bronze: 0, mvp_loss: 2 },
+        tied: { mvp: 2, gold: 1, silver: 1, bronze: -1, mvp_loss: 1 },
+      };
+
+      // ── AUTH ──
       onAuthStateChanged(auth, (user) => {
-        const adminButton = document.getElementById("admin-button");
-        const loginButton = document.getElementById("login-button");
+        const lb = document.getElementById("login-btn");
+        const lo = document.getElementById("logout-btn");
+        const aw = document.getElementById("award-btn");
         if (user) {
-          adminButton.style.display = "inline-block";
-          loginButton.style.display = "none";
+          lb.style.display = "none";
+          lo.style.display = "";
+          aw.style.display = "";
         } else {
-          adminButton.style.display = "none";
-          loginButton.style.display = "inline-block";
+          lb.style.display = "";
+          lo.style.display = "none";
+          aw.style.display = "none";
         }
       });
 
-      // Listen for Players
+      window.signInGoogle = async () => {
+        try {
+          await signInWithPopup(auth, provider);
+          closeModal("login-modal");
+        } catch (e) {
+          document.getElementById("login-err").textContent = e.message;
+        }
+      };
+
+      window.doLogout = () => signOut(auth);
+
+      // ── PLAYERS ──
       onSnapshot(collection(db, "players"), (snap) => {
         players = snap.docs.map((d) => ({ id: d.id, ...d.data() }));
         const sorted = [...players].sort(
           (a, b) => (b.points || 0) - (a.points || 0),
         );
-        updateUI(sorted);
+        renderLeaderboard(sorted);
+        updateStats(sorted);
+        populateSelect(sorted);
       });
 
-      // Listen for Activity
-      const activityQuery = query(
+      // ── ACTIVITY ──
+      const actQ = query(
         collection(db, "activity"),
         orderBy("timestamp", "desc"),
-        limit(5),
+        limit(8),
       );
-      onSnapshot(activityQuery, (snap) => {
+      onSnapshot(actQ, (snap) => {
         const feed = document.getElementById("activity-feed");
+        if (!snap.docs.length) {
+          feed.innerHTML =
+            '<div style="color:var(--muted);font-size:12px">No activity yet.</div>';
+          return;
+        }
         feed.innerHTML = snap.docs
           .map((d) => {
-            const data = d.data();
-            const time =
-              data.timestamp?.toDate().toLocaleTimeString([], {
-                hour: "2-digit",
-                minute: "2-digit",
-              }) || "--:--";
+            const x = d.data();
+            const t =
+              x.timestamp
+                ?.toDate()
+                .toLocaleTimeString([], {
+                  hour: "2-digit",
+                  minute: "2-digit",
+                }) || "--:--";
+            const ptsStr = x.pts >= 0 ? `+${x.pts}` : `${x.pts}`;
+            const ptsColor = x.pts > 0 ? "var(--green)" : "var(--red)";
+            const badgeColors = {
+              mvp: "var(--mvp)",
+              gold: "var(--gold)",
+              silver: "var(--silver)",
+              bronze: "var(--bronze)",
+              mvp_loss: "var(--red)",
+            };
+            const badgeBg = badgeColors[x.type] || "var(--muted)";
+            const modeLabel =
+              x.mode === "solo"
+                ? " · SOLO"
+                : x.mode === "tied"
+                  ? " · TIED"
+                  : "";
             return `<div class="feed-item">
-              <span class="feed-time">${time}</span>
-              <span class="feed-desc"><strong>${data.playerName}</strong> awarded ${data.type.toUpperCase()}</span>
-              <span style="color:var(--green)">+${data.pts}</span>
-          </div>`;
+        <span class="feed-time">${t}</span>
+        <span class="feed-badge" style="background:${badgeBg};color:#000">${(x.type || "").toUpperCase()}</span>
+        <span class="feed-name">${x.playerName}${modeLabel ? `<span class="feed-mode">${modeLabel}</span>` : ""}</span>
+        <span class="feed-pts" style="color:${ptsColor}">${ptsStr}</span>
+      </div>`;
           })
           .join("");
       });
 
-      function updateUI(sorted) {
+      // ── UI HELPERS ──
+      function updateStats(sorted) {
         document.getElementById("stat-count").textContent = players.length;
         document.getElementById("stat-top").textContent =
           sorted[0]?.points || 0;
@@ -652,107 +1109,156 @@
             minute: "2-digit",
           });
 
-        const alert = document.getElementById("catchup-alert");
+        // Catch-up alert: check last player gap
         const gap =
           (sorted[0]?.points || 0) - (sorted[sorted.length - 1]?.points || 0);
+        const alertEl = document.getElementById("catchup-alert");
         if (gap >= 15 && sorted.length > 1) {
-          alert.style.display = "flex";
+          alertEl.style.display = "flex";
           document.getElementById("alert-msg").textContent =
-            `Solo catch-up eligible: ${sorted[sorted.length - 1].name} (${gap} pts behind)`;
+            `Solo catch-up eligible: ${sorted[sorted.length - 1].name} is ${gap} pts behind the leader`;
         } else {
-          alert.style.display = "none";
+          alertEl.style.display = "none";
         }
+      }
 
-        document.getElementById("leaderboard-body").innerHTML = sorted
-          .map(
-            (p, i) => `
-        <div class="grid-row player-row">
-          <div><div class="rank-circle ${i === 0 ? "rank-1" : ""}">${i + 1}</div></div>
-          <div class="p-name">${p.name}</div>
-          <div class="hide-mob" style="text-align:center">${p.mvp || 0}</div>
-          <div class="hide-mob" style="text-align:center">${p.gold || 0}</div>
-          <div class="hide-mob" style="text-align:center">${p.silver || 0}</div>
-          <div class="hide-mob" style="text-align:center">${p.bronze || 0}</div>
-          <div class="hide-mob" style="text-align:center">${p.mvp_loss || 0}</div>
-          <div style="text-align:center">${(p.mvp || 0) + (p.gold || 0) + (p.silver || 0)}</div>
-          <div class="p-pts">${p.points || 0}</div>
+      // Avatar colors
+      const COLORS = [
+        "#3b82f6",
+        "#8b5cf6",
+        "#ec4899",
+        "#14b8a6",
+        "#f59e0b",
+        "#ef4444",
+        "#10b981",
+        "#f97316",
+      ];
+      function avatarColor(name) {
+        let h = 0;
+        for (let c of name) h = (h * 31 + c.charCodeAt(0)) & 0xffff;
+        return COLORS[h % COLORS.length];
+      }
+
+      function renderLeaderboard(sorted) {
+        const body = document.getElementById("lb-body");
+        if (!sorted.length) {
+          body.innerHTML =
+            '<div style="padding:30px;text-align:center;color:var(--muted);font-size:13px">No players yet.</div>';
+          return;
+        }
+        body.innerHTML = sorted
+          .map((p, i) => {
+            const wins = (p.mvp || 0) + (p.gold || 0) + (p.silver || 0);
+            const rClass =
+              i === 0 ? "r1" : i === 1 ? "r2" : i === 2 ? "r3" : "";
+            const rowClass = i === 0 ? "rank-1-row" : "";
+            const ptsClass =
+              i === 0 ? "" : i === 1 ? "p2" : i === 2 ? "p3" : "pn";
+            const initials = p.name.substring(0, 2).toUpperCase();
+            const col = avatarColor(p.name);
+            const mv = p.mvp || 0,
+              g = p.gold || 0,
+              s = p.silver || 0,
+              b = p.bronze || 0,
+              l = p.mvp_loss || 0;
+            return `<div class="grid-row tr ${rowClass}">
+        <div><div class="rank-num ${rClass}">${i + 1}</div></div>
+        <div class="p-info">
+          <div class="p-avatar" style="background:${col}">${initials}</div>
+          <div>
+            <div class="p-name">${p.name}</div>
+          </div>
         </div>
-      `,
-          )
-          .join("");
-
-        document.getElementById("award-player").innerHTML = sorted
-          .map((p) => `<option value="${p.id}">${p.name}</option>`)
+        <div class="cell-num hide-mob ${mv ? "has" : ""}">${mv || "—"}</div>
+        <div class="cell-num hide-mob ${g ? "has" : ""}">${g || "—"}</div>
+        <div class="cell-num hide-mob ${s ? "has" : ""}">${s || "—"}</div>
+        <div class="cell-num hide-mob ${b ? "has" : ""}">${b || "—"}</div>
+        <div class="cell-num hide-mob ${l ? "has" : ""}">${l || "—"}</div>
+        <div class="cell-num ${wins ? "has" : ""}">${wins}</div>
+        <div class="cell-pts ${ptsClass}">${p.points || 0}</div>
+      </div>`;
+          })
           .join("");
       }
 
-      window.login = async function () {
-        const email = document.getElementById("login-email").value;
-        const password = document.getElementById("login-password").value;
-        const errorElement = document.getElementById("login-error");
+      function populateSelect(sorted) {
+        const sel = document.getElementById("aw-player");
+        sel.innerHTML = sorted
+          .map(
+            (p) =>
+              `<option value="${p.id}">${p.name} (${p.points || 0} pts)</option>`,
+          )
+          .join("");
+      }
 
-        try {
-          await signInWithEmailAndPassword(auth, email, password);
-          closeLoginModal();
-        } catch (error) {
-          errorElement.textContent = "Login failed: " + error.message;
-        }
-      };
-
-      window.logout = function () {
-        signOut(auth);
-      };
-
-      window.openAdmin = function () {
-        if (auth.currentUser) {
-          document.getElementById("admin-modal").classList.add("open");
-        } else {
-          openLoginModal();
-        }
-      };
-
-      window.openLoginModal = function () {
-        document.getElementById("login-modal").classList.add("open");
-      };
-
-      window.closeLoginModal = function () {
-        document.getElementById("login-modal").classList.remove("open");
-        document.getElementById("login-email").value = "";
-        document.getElementById("login-password").value = "";
-        document.getElementById("login-error").textContent = "";
-      };
-
-      window.closeModals = function () {
-        document.getElementById("admin-modal").classList.remove("open");
+      // ── AWARD LOGIC ──
+      window.updatePreview = function () {
+        const type = document.getElementById("aw-type").value;
+        const mode = document.getElementById("aw-mode").value;
+        const pts = PTS[mode]?.[type] ?? 0;
+        const el = document.getElementById("preview-pts");
+        el.textContent = pts >= 0 ? `+${pts}` : `${pts}`;
+        el.className = "pts-big" + (pts < 0 ? " pts-neg" : "");
       };
 
       window.doAward = async function () {
-        const pId = document.getElementById("award-player").value;
-        const type = document.getElementById("award-type").value;
-        const mode = document.getElementById("award-mode").value;
+        if (!auth.currentUser) {
+          openLogin();
+          return;
+        }
+        const pId = document.getElementById("aw-player").value;
+        const type = document.getElementById("aw-type").value;
+        const mode = document.getElementById("aw-mode").value;
         const p = players.find((x) => x.id === pId);
+        if (!p) return;
 
-        const ptsMap =
-          mode === "solo"
-            ? { mvp: 7, gold: 5, silver: 4, bronze: 0, mvp_loss: 2 }
-            : { mvp: 5, gold: 4, silver: 3, bronze: -2, mvp_loss: 1 };
+        let gain = PTS[mode]?.[type] ?? 0;
 
-        const gain = ptsMap[type];
+        // Solo cap: stop when reaching #3 player's score
+        if (mode === "solo") {
+          const sorted = [...players].sort(
+            (a, b) => (b.points || 0) - (a.points || 0),
+          );
+          const thirdScore = sorted[2]?.points || 0;
+          const curPts = p.points || 0;
+          const projected = curPts + gain;
+          if (projected > thirdScore) {
+            gain = Math.max(0, thirdScore - curPts);
+          }
+        }
 
         await updateDoc(doc(db, "players", pId), {
           [type]: (p[type] || 0) + 1,
           points: (p.points || 0) + gain,
         });
-
         await addDoc(collection(db, "activity"), {
           playerName: p.name,
-          type: type,
+          type,
+          mode,
           pts: gain,
           timestamp: serverTimestamp(),
         });
-
-        closeModals();
+        closeModal("award-modal");
       };
+
+      // ── MODAL HELPERS ──
+      window.openLogin = () => {
+        document.getElementById("login-err").textContent = "";
+        document.getElementById("login-modal").classList.add("open");
+      };
+      window.openAward = () => {
+        updatePreview();
+        document.getElementById("award-modal").classList.add("open");
+      };
+      window.closeModal = (id) =>
+        document.getElementById(id).classList.remove("open");
+
+      // Close on backdrop click
+      document.querySelectorAll(".overlay").forEach((o) => {
+        o.addEventListener("click", (e) => {
+          if (e.target === o) o.classList.remove("open");
+        });
+      });
     </script>
   </body>
 </html>
