@@ -24,11 +24,13 @@
         --red: #f87171;
         --blue: #58a6ff;
       }
+
       * {
         box-sizing: border-box;
         margin: 0;
         padding: 0;
       }
+
       body {
         background-color: var(--bg);
         background-image:
@@ -46,18 +48,20 @@
         padding: 20px;
       }
 
-      /* ── HEADER ── */
+      /* Header */
       .header {
         display: flex;
         align-items: center;
         justify-content: space-between;
         margin-bottom: 30px;
       }
+
       .logo-section {
         display: flex;
         align-items: center;
         gap: 12px;
       }
+
       .logo-sq {
         width: 32px;
         height: 32px;
@@ -69,25 +73,28 @@
         font-weight: 800;
         color: #000;
       }
+
       .logo-text h1 {
         font-family: "Rajdhani";
         font-size: 24px;
         letter-spacing: 2px;
         line-height: 1;
       }
+
       .logo-text p {
         font-size: 10px;
         color: var(--muted);
         letter-spacing: 1px;
       }
 
-      /* ── DASHBOARD ── */
+      /* Stats Grid */
       .stats-grid {
         display: grid;
         grid-template-columns: repeat(4, 1fr);
         gap: 15px;
         margin-bottom: 15px;
       }
+
       .stat-card {
         background: var(--bg2);
         border: 1px solid var(--border);
@@ -96,6 +103,7 @@
         position: relative;
         overflow: hidden;
       }
+
       .stat-card::after {
         content: "";
         position: absolute;
@@ -106,6 +114,7 @@
         background: var(--blue);
         opacity: 0.5;
       }
+
       .stat-label {
         font-size: 10px;
         color: var(--muted);
@@ -114,6 +123,7 @@
         font-weight: 700;
         letter-spacing: 1px;
       }
+
       .stat-value {
         font-family: "Rajdhani";
         font-size: 28px;
@@ -121,7 +131,7 @@
         color: #fff;
       }
 
-      /* ── ALERT ── */
+      /* Alert Banner */
       .alert-banner {
         background: rgba(62, 207, 142, 0.03);
         border: 1px solid rgba(62, 207, 142, 0.2);
@@ -136,7 +146,7 @@
         font-weight: 500;
       }
 
-      /* ── LEADERBOARD ── */
+      /* Leaderboard */
       .section-title {
         font-size: 11px;
         color: var(--muted);
@@ -145,12 +155,14 @@
         margin-bottom: 15px;
         font-weight: 700;
       }
+
       .medal-legend {
         display: flex;
         flex-wrap: wrap;
         gap: 10px;
         margin-bottom: 20px;
       }
+
       .badge {
         padding: 4px 12px;
         border-radius: 20px;
@@ -170,12 +182,14 @@
         overflow: hidden;
         margin-bottom: 30px;
       }
+
       .grid-row {
         display: grid;
         grid-template-columns: 50px 1fr 60px 60px 60px 60px 60px 70px 80px;
         align-items: center;
         padding: 15px 25px;
       }
+
       .table-header {
         border-bottom: 1px solid var(--border);
         font-size: 10px;
@@ -183,14 +197,17 @@
         text-transform: uppercase;
         font-weight: 700;
       }
+
       .player-row {
         border-bottom: 1px solid var(--border);
         font-size: 14px;
         transition: background 0.2s;
       }
+
       .player-row:hover {
         background: rgba(255, 255, 255, 0.01);
       }
+
       .rank-circle {
         width: 30px;
         height: 30px;
@@ -202,15 +219,18 @@
         font-size: 12px;
         font-weight: 700;
       }
+
       .rank-1 {
         color: var(--gold);
         border-color: var(--gold);
         background: rgba(245, 197, 66, 0.05);
       }
+
       .p-name {
         font-weight: 600;
         text-transform: uppercase;
       }
+
       .p-pts {
         text-align: right;
         color: var(--gold);
@@ -219,12 +239,13 @@
         font-weight: 700;
       }
 
-      /* ── FOOTER SECTIONS ── */
+      /* Footer */
       .footer-grid {
         display: grid;
         grid-template-columns: 1fr 1fr;
         gap: 30px;
       }
+
       .feed-box,
       .rules-box {
         background: var(--bg2);
@@ -232,6 +253,7 @@
         border-radius: 12px;
         padding: 24px;
       }
+
       .feed-item {
         display: flex;
         justify-content: space-between;
@@ -239,16 +261,18 @@
         padding: 10px 0;
         border-bottom: 1px solid rgba(255, 255, 255, 0.02);
       }
+
       .feed-time {
         color: var(--muted);
         width: 60px;
       }
+
       .feed-desc {
         flex: 1;
         padding: 0 15px;
       }
 
-      /* ── MODAL ── */
+      /* Modal */
       .modal-overlay {
         display: none;
         position: fixed;
@@ -259,9 +283,11 @@
         justify-content: center;
         padding: 20px;
       }
+
       .modal-overlay.open {
         display: flex;
       }
+
       .modal {
         background: var(--bg2);
         border: 1px solid var(--border);
@@ -270,7 +296,8 @@
         max-width: 400px;
         padding: 25px;
       }
-      select {
+
+      input {
         width: 100%;
         padding: 12px;
         margin-bottom: 15px;
@@ -280,6 +307,7 @@
         border-radius: 6px;
         outline: none;
       }
+
       label {
         font-size: 10px;
         color: var(--muted);
@@ -287,25 +315,6 @@
         margin-bottom: 5px;
         display: block;
         font-weight: 700;
-      }
-
-      /* ── RESPONSIVE ── */
-      @media (max-width: 850px) {
-        .grid-row {
-          grid-template-columns: 40px 1fr 60px 75px;
-        } /* Rank, Name, Wins, Points */
-        .hide-mob {
-          display: none !important;
-        }
-        .stats-grid {
-          grid-template-columns: 1fr 1fr;
-        }
-        .footer-grid {
-          grid-template-columns: 1fr;
-        }
-        .stat-value {
-          font-size: 22px;
-        }
       }
 
       .btn {
@@ -318,10 +327,30 @@
         font-size: 12px;
         font-weight: 600;
       }
+
       .btn-primary {
         background: var(--blue);
         color: #000;
         border: none;
+      }
+
+      /* Responsive */
+      @media (max-width: 850px) {
+        .grid-row {
+          grid-template-columns: 40px 1fr 60px 75px;
+        }
+        .hide-mob {
+          display: none !important;
+        }
+        .stats-grid {
+          grid-template-columns: 1fr 1fr;
+        }
+        .footer-grid {
+          grid-template-columns: 1fr;
+        }
+        .stat-value {
+          font-size: 22px;
+        }
       }
     </style>
   </head>
@@ -356,7 +385,7 @@
             ></span>
             LIVE
           </div>
-          <button class="btn" onclick="openAdmin()">Admin</button>
+          <button class="btn" onclick="openLoginModal()">Admin</button>
         </div>
       </div>
 
@@ -399,7 +428,7 @@
             "
             >MVP</span
           >
-          +5 pts
+          +7 pts
         </div>
         <div class="badge">
           <span
@@ -412,7 +441,7 @@
             "
             >Gold</span
           >
-          +4 pts
+          +5 pts
         </div>
         <div class="badge">
           <span
@@ -425,7 +454,7 @@
             "
             >Silver</span
           >
-          +3 pts
+          +4 pts
         </div>
         <div class="badge">
           <span
@@ -438,7 +467,7 @@
             "
             >Bronze</span
           >
-          -2 pts
+          +2 pts
         </div>
         <div class="badge">
           <span
@@ -487,7 +516,6 @@
               total reaches <strong>#3 player's current score.</strong> Excess
               is capped automatically.
             </p>
-
             <div
               style="display: grid; grid-template-columns: 1fr 1fr; gap: 10px"
             >
@@ -509,6 +537,34 @@
       </div>
     </div>
 
+    <!-- Login Modal -->
+    <div class="modal-overlay" id="login-modal">
+      <div class="modal">
+        <h2 style="margin-bottom: 20px; font-family: Rajdhani">Admin Login</h2>
+        <label>Email</label>
+        <input type="email" id="login-email" placeholder="Enter admin email" />
+        <label>Password</label>
+        <input
+          type="password"
+          id="login-password"
+          placeholder="Enter password"
+        />
+        <div style="display: flex; gap: 10px; margin-top: 15px">
+          <button class="btn" style="flex: 1" onclick="closeLoginModal()">
+            Cancel
+          </button>
+          <button class="btn btn-primary" style="flex: 1" onclick="login()">
+            Login
+          </button>
+        </div>
+        <p
+          id="login-error"
+          style="color: var(--red); margin-top: 10px; font-size: 12px"
+        ></p>
+      </div>
+    </div>
+
+    <!-- Admin Modal -->
     <div class="modal-overlay" id="admin-modal">
       <div class="modal">
         <h2 style="margin-bottom: 20px; font-family: Rajdhani">Award Points</h2>
@@ -538,6 +594,7 @@
       </div>
     </div>
 
+    <!-- Firebase and JavaScript -->
     <script type="module">
       import { initializeApp } from "https://www.gstatic.com/firebasejs/10.12.0/firebase-app.js";
       import {
@@ -552,6 +609,12 @@
         orderBy,
         limit,
       } from "https://www.gstatic.com/firebasejs/10.12.0/firebase-firestore.js";
+      import {
+        getAuth,
+        signInWithEmailAndPassword,
+        onAuthStateChanged,
+        signOut,
+      } from "https://www.gstatic.com/firebasejs/10.12.0/firebase-auth.js";
 
       const firebaseConfig = {
         apiKey: "AIzaSyAHa6RAfBlWGO1aWQ1jOPV3fXwTMrUpS1A",
@@ -564,7 +627,25 @@
 
       const app = initializeApp(firebaseConfig);
       const db = getFirestore(app);
+      const auth = getAuth(app);
       let players = [];
+
+      // Check auth state
+      onAuthStateChanged(auth, (user) => {
+        if (user) {
+          document.querySelector(
+            '.btn[onclick="openLoginModal()"]',
+          ).style.display = "none";
+          document.querySelector('.btn[onclick="openAdmin()"]').style.display =
+            "inline-block";
+        } else {
+          document.querySelector(
+            '.btn[onclick="openLoginModal()"]',
+          ).style.display = "inline-block";
+          document.querySelector('.btn[onclick="openAdmin()"]').style.display =
+            "none";
+        }
+      });
 
       // Listen for Players
       onSnapshot(collection(db, "players"), (snap) => {
@@ -587,17 +668,15 @@
           .map((d) => {
             const data = d.data();
             const time =
-              data.timestamp
-                ?.toDate()
-                .toLocaleTimeString([], {
-                  hour: "2-digit",
-                  minute: "2-digit",
-                }) || "--:--";
+              data.timestamp?.toDate().toLocaleTimeString([], {
+                hour: "2-digit",
+                minute: "2-digit",
+              }) || "--:--";
             return `<div class="feed-item">
-                <span class="feed-time">${time}</span>
-                <span class="feed-desc"><strong>${data.playerName}</strong> awarded ${data.type.toUpperCase()}</span>
-                <span style="color:var(--green)">+${data.pts}</span>
-            </div>`;
+              <span class="feed-time">${time}</span>
+              <span class="feed-desc"><strong>${data.playerName}</strong> awarded ${data.type.toUpperCase()}</span>
+              <span style="color:var(--green)">+${data.pts}</span>
+          </div>`;
           })
           .join("");
       });
@@ -628,18 +707,18 @@
         document.getElementById("leaderboard-body").innerHTML = sorted
           .map(
             (p, i) => `
-          <div class="grid-row player-row">
-            <div><div class="rank-circle ${i === 0 ? "rank-1" : ""}">${i + 1}</div></div>
-            <div class="p-name">${p.name}</div>
-            <div class="hide-mob" style="text-align:center">${p.mvp || 0}</div>
-            <div class="hide-mob" style="text-align:center">${p.gold || 0}</div>
-            <div class="hide-mob" style="text-align:center">${p.silver || 0}</div>
-            <div class="hide-mob" style="text-align:center">${p.bronze || 0}</div>
-            <div class="hide-mob" style="text-align:center">${p.mvp_loss || 0}</div>
-            <div style="text-align:center">${(p.mvp || 0) + (p.gold || 0) + (p.silver || 0)}</div>
-            <div class="p-pts">${p.points || 0}</div>
-          </div>
-        `,
+        <div class="grid-row player-row">
+          <div><div class="rank-circle ${i === 0 ? "rank-1" : ""}">${i + 1}</div></div>
+          <div class="p-name">${p.name}</div>
+          <div class="hide-mob" style="text-align:center">${p.mvp || 0}</div>
+          <div class="hide-mob" style="text-align:center">${p.gold || 0}</div>
+          <div class="hide-mob" style="text-align:center">${p.silver || 0}</div>
+          <div class="hide-mob" style="text-align:center">${p.bronze || 0}</div>
+          <div class="hide-mob" style="text-align:center">${p.mvp_loss || 0}</div>
+          <div style="text-align:center">${(p.mvp || 0) + (p.gold || 0) + (p.silver || 0)}</div>
+          <div class="p-pts">${p.points || 0}</div>
+        </div>
+      `,
           )
           .join("");
 
@@ -647,6 +726,46 @@
           .map((p) => `<option value="${p.id}">${p.name}</option>`)
           .join("");
       }
+
+      window.login = async function () {
+        const email = document.getElementById("login-email").value;
+        const password = document.getElementById("login-password").value;
+        const errorElement = document.getElementById("login-error");
+
+        try {
+          await signInWithEmailAndPassword(auth, email, password);
+          closeLoginModal();
+        } catch (error) {
+          errorElement.textContent = "Login failed: " + error.message;
+        }
+      };
+
+      window.logout = function () {
+        signOut(auth);
+      };
+
+      window.openAdmin = function () {
+        if (auth.currentUser) {
+          document.getElementById("admin-modal").classList.add("open");
+        } else {
+          openLoginModal();
+        }
+      };
+
+      window.openLoginModal = function () {
+        document.getElementById("login-modal").classList.add("open");
+      };
+
+      window.closeLoginModal = function () {
+        document.getElementById("login-modal").classList.remove("open");
+        document.getElementById("login-email").value = "";
+        document.getElementById("login-password").value = "";
+        document.getElementById("login-error").textContent = "";
+      };
+
+      window.closeModals = function () {
+        document.getElementById("admin-modal").classList.remove("open");
+      };
 
       window.doAward = async function () {
         const pId = document.getElementById("award-player").value;
@@ -675,11 +794,6 @@
 
         closeModals();
       };
-
-      window.openAdmin = () =>
-        document.getElementById("admin-modal").classList.add("open");
-      window.closeModals = () =>
-        document.getElementById("admin-modal").classList.remove("open");
     </script>
   </body>
 </html>
