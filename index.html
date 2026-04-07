@@ -43,23 +43,33 @@
         line-height: 1.5;
       }
 
+      /* ── BACKGROUND GRID ── */
+      body::before {
+        content: "";
+        position: fixed;
+        inset: 0;
+        background:
+          linear-gradient(rgba(96, 165, 250, 0.05) 1px, transparent 1px),
+          linear-gradient(90deg, rgba(96, 165, 250, 0.05) 1px, transparent 1px);
+        background-size: 40px 40px;
+        z-index: -1;
+      }
+
       /* ── TOP BAR ── */
       .topbar {
         display: flex;
-        align-items: center;
         justify-content: space-between;
         padding: 14px 24px;
         background: var(--bg2);
         border-bottom: 1px solid var(--border);
         position: sticky;
         top: 0;
-        z-index: 50;
       }
 
       .topbar-left {
         display: flex;
-        align-items: center;
         gap: 12px;
+        align-items: center;
       }
 
       .logo-badge {
@@ -70,44 +80,37 @@
         display: flex;
         align-items: center;
         justify-content: center;
-        font-family: "Rajdhani", sans-serif;
+        font-family: "Rajdhani";
         font-weight: 700;
-        font-size: 18px;
         color: #000;
       }
 
       .logo-text {
-        font-family: "Rajdhani", sans-serif;
+        font-family: "Rajdhani";
         font-weight: 700;
         font-size: 20px;
-        letter-spacing: 1px;
-        text-transform: uppercase;
       }
 
       .logo-sub {
         font-size: 10px;
         color: var(--muted);
-        letter-spacing: 1px;
-        text-transform: uppercase;
       }
 
       .topbar-right {
         display: flex;
-        align-items: center;
         gap: 10px;
+        align-items: center;
       }
 
       .live-badge {
         display: flex;
-        align-items: center;
         gap: 6px;
-        background: rgba(62, 207, 142, 0.12);
+        background: rgba(62, 207, 142, 0.1);
         border: 1px solid rgba(62, 207, 142, 0.3);
         color: var(--green);
-        font-size: 11px;
-        font-weight: 600;
         padding: 4px 10px;
         border-radius: 20px;
+        font-size: 11px;
       }
 
       .live-dot {
@@ -130,50 +133,57 @@
 
       /* ── BUTTONS ── */
       .btn {
-        padding: 7px 16px;
+        padding: 7px 14px;
         border-radius: 8px;
-        font-size: 13px;
-        font-weight: 500;
-        cursor: pointer;
         border: 1px solid var(--border);
         background: var(--bg3);
         color: var(--text);
-        transition: all 0.15s;
+        cursor: pointer;
       }
 
       .btn:hover {
         background: rgba(255, 255, 255, 0.08);
       }
 
-      .btn:active {
-        transform: scale(0.97);
-      }
-
       .btn-primary {
-        background: rgba(176, 124, 255, 0.15);
-        border-color: rgba(176, 124, 255, 0.4);
         color: var(--mvp);
+        border-color: rgba(176, 124, 255, 0.4);
       }
 
       .btn-danger {
-        background: rgba(248, 113, 113, 0.1);
-        border-color: rgba(248, 113, 113, 0.3);
         color: var(--red);
       }
 
       /* ── MAIN ── */
       .main {
-        max-width: 1200px;
+        max-width: 1100px;
         margin: 0 auto;
-        padding: 24px 16px;
+        padding: 24px;
       }
 
-      .section-label {
+      /* ── STATS ── */
+      .stats {
+        display: grid;
+        grid-template-columns: repeat(4, 1fr);
+        gap: 16px;
+        margin-bottom: 20px;
+      }
+
+      .card {
+        background: var(--bg2);
+        border: 1px solid var(--border);
+        border-radius: 12px;
+        padding: 16px;
+      }
+
+      .card span {
         font-size: 11px;
-        letter-spacing: 2px;
-        text-transform: uppercase;
         color: var(--muted);
-        margin-bottom: 16px;
+      }
+
+      .card h2 {
+        margin-top: 6px;
+        font-family: "Rajdhani";
       }
 
       /* ── TABLE ── */
@@ -181,126 +191,142 @@
         background: var(--bg2);
         border: 1px solid var(--border);
         border-radius: 14px;
-        margin-bottom: 32px;
         overflow-x: auto;
       }
 
       .table-head,
       .table-row {
         display: grid;
-        grid-template-columns: 50px minmax(160px, 1fr) repeat(
-            5,
-            80px
-          ) 90px 100px 90px;
-        padding: 12px 20px;
-        align-items: center;
-        min-width: 1000px;
+        grid-template-columns: 50px 1fr repeat(5, 80px) 100px;
+        padding: 12px 16px;
+        min-width: 900px;
       }
 
       .table-head {
-        border-bottom: 1px solid var(--border);
         background: rgba(255, 255, 255, 0.02);
-      }
-
-      .table-head span {
         font-size: 10px;
-        letter-spacing: 1px;
         text-transform: uppercase;
         color: var(--muted);
-        text-align: center;
-        font-weight: 700;
-      }
-
-      .table-row {
-        border-bottom: 1px solid var(--border);
-        transition: background 0.12s;
       }
 
       .table-row:hover {
         background: rgba(255, 255, 255, 0.03);
       }
 
-      /* ── PLAYER ── */
       .player-info {
         display: flex;
-        align-items: center;
         gap: 10px;
+        align-items: center;
       }
 
       .avatar {
         width: 30px;
         height: 30px;
         border-radius: 50%;
-        display: flex;
-        align-items: center;
-        justify-content: center;
-        font-weight: 700;
-        font-size: 12px;
       }
 
       .player-name {
         font-weight: 600;
-        font-size: 14px;
-        text-transform: uppercase;
-        white-space: nowrap;
       }
 
-      /* ── CELLS ── */
       .cell {
         text-align: center;
-        font-size: 14px;
         color: var(--muted);
       }
 
       .cell-val {
         color: var(--text);
-        font-weight: 600;
       }
 
       .points-val {
-        font-family: "Rajdhani", sans-serif;
         font-weight: 700;
-        font-size: 20px;
         color: var(--gold);
+        text-align: right;
       }
 
-      /* ── ADMIN PANEL ── */
-      .admin-panel {
-        background: var(--bg2);
-        border: 1px solid var(--border);
-        border-radius: 14px;
-        padding: 20px;
+      /* ── PANELS ── */
+      .panels {
+        display: grid;
+        grid-template-columns: 1fr 1fr;
+        gap: 16px;
         margin-top: 20px;
       }
 
-      .admin-header {
+      .panel {
+        background: var(--bg2);
+        border: 1px solid var(--border);
+        border-radius: 12px;
+        padding: 16px;
+      }
+
+      .panel-title {
+        font-size: 12px;
+        color: var(--muted);
+        margin-bottom: 10px;
+      }
+
+      /* ── FEED ── */
+      .feed-item {
         display: flex;
         justify-content: space-between;
-        margin-bottom: 16px;
+        font-size: 13px;
+        padding: 6px 0;
       }
 
-      .admin-title {
-        font-family: "Rajdhani";
-        font-size: 18px;
-        font-weight: 700;
+      .feed-time {
+        color: var(--muted);
       }
 
-      .admin-actions {
-        display: flex;
+      .feed-by {
+        color: var(--muted);
+      }
+
+      /* ── TAGS ── */
+      .tag {
+        padding: 2px 6px;
+        border-radius: 6px;
+        font-size: 10px;
+      }
+
+      .tag-mvp {
+        color: var(--mvp);
+      }
+      .tag-gold {
+        color: var(--gold);
+      }
+      .tag-silver {
+        color: var(--silver);
+      }
+      .tag-bronze {
+        color: var(--bronze);
+      }
+      .tag-loss {
+        color: var(--red);
+      }
+
+      /* ── POINT CARDS ── */
+      .pts-grid {
+        display: grid;
+        grid-template-columns: repeat(3, 1fr);
         gap: 10px;
-        flex-wrap: wrap;
       }
 
-      /* ── MODALS ── */
+      .pts-card {
+        background: var(--bg3);
+        border: 1px solid var(--border);
+        border-radius: 8px;
+        padding: 10px;
+        text-align: center;
+      }
+
+      /* ── MODAL ── */
       .modal-overlay {
         display: none;
         position: fixed;
         inset: 0;
         background: rgba(0, 0, 0, 0.85);
-        z-index: 100;
-        align-items: center;
         justify-content: center;
-        padding: 16px;
+        align-items: center;
       }
 
       .modal-overlay.open {
@@ -309,33 +335,20 @@
 
       .modal {
         background: var(--bg2);
-        border: 1px solid var(--border);
-        border-radius: 16px;
+        border-radius: 12px;
+        padding: 20px;
         width: 100%;
-        max-width: 440px;
-        padding: 28px;
-      }
-
-      .form-group {
-        margin-bottom: 16px;
-      }
-
-      .form-group input,
-      .form-group select {
-        width: 100%;
-        padding: 11px;
-        background: var(--bg3);
-        border: 1px solid var(--border);
-        border-radius: 8px;
-        color: var(--text);
+        max-width: 400px;
       }
 
       /* ── MOBILE ── */
       @media (max-width: 768px) {
-        .topbar {
-          flex-direction: column;
-          align-items: flex-start;
-          gap: 10px;
+        .stats {
+          grid-template-columns: 1fr 1fr;
+        }
+
+        .panels {
+          grid-template-columns: 1fr;
         }
 
         .table-head {
@@ -345,25 +358,12 @@
         .table-row {
           display: flex;
           flex-direction: column;
-          gap: 10px;
-          min-width: 100%;
+          gap: 6px;
         }
 
-        .table-row > div {
+        .table-row div {
           display: flex;
           justify-content: space-between;
-        }
-
-        .table-row > div::before {
-          content: attr(data-label);
-          color: var(--muted);
-          font-size: 11px;
-        }
-      }
-
-      @media (max-width: 480px) {
-        .modal {
-          padding: 16px;
         }
       }
     </style>
@@ -386,8 +386,27 @@
       </div>
     </div>
 
+    <div class="stats">
+      <div class="card">
+        <span>Players</span>
+        <h2 id="stat-players">0</h2>
+      </div>
+      <div class="card">
+        <span>Top Score</span>
+        <h2 id="stat-top">0</h2>
+      </div>
+      <div class="card">
+        <span>Leader</span>
+        <h2 id="stat-leader">—</h2>
+      </div>
+      <div class="card">
+        <span>Last Sync</span>
+        <h2 id="stat-sync">--:--</h2>
+      </div>
+    </div>
+
     <!-- MAIN -->
-    <div class="main">
+    <div class="main dashboard">
       <div class="section-label">Leaderboard</div>
 
       <!-- Legend -->
@@ -797,6 +816,17 @@
           return;
         }
         const rank1pts = sorted[0]?.points || 0;
+        document.getElementById("stat-players").textContent = players.length;
+        document.getElementById("stat-top").textContent =
+          sorted[0]?.points || 0;
+        document.getElementById("stat-leader").textContent =
+          sorted[0]?.name || "—";
+
+        document.getElementById("stat-sync").textContent =
+          new Date().toLocaleTimeString([], {
+            hour: "2-digit",
+            minute: "2-digit",
+          });
         const rank3pts = sorted[2]?.points;
         el.innerHTML = sorted
           .map((p, i) => {
