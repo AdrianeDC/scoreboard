@@ -24,13 +24,11 @@
         --red: #f87171;
         --blue: #58a6ff;
       }
-
       * {
         box-sizing: border-box;
         margin: 0;
         padding: 0;
       }
-
       body {
         background-color: var(--bg);
         background-image:
@@ -41,27 +39,22 @@
         font-family: "Inter", sans-serif;
         min-height: 100vh;
       }
-
       .main-container {
         max-width: 1200px;
         margin: 0 auto;
         padding: 20px;
       }
-
-      /* Header */
       .header {
         display: flex;
         align-items: center;
         justify-content: space-between;
         margin-bottom: 30px;
       }
-
       .logo-section {
         display: flex;
         align-items: center;
         gap: 12px;
       }
-
       .logo-sq {
         width: 32px;
         height: 32px;
@@ -73,28 +66,23 @@
         font-weight: 800;
         color: #000;
       }
-
       .logo-text h1 {
         font-family: "Rajdhani";
         font-size: 24px;
         letter-spacing: 2px;
         line-height: 1;
       }
-
       .logo-text p {
         font-size: 10px;
         color: var(--muted);
         letter-spacing: 1px;
       }
-
-      /* Stats Grid */
       .stats-grid {
         display: grid;
         grid-template-columns: repeat(4, 1fr);
         gap: 15px;
         margin-bottom: 15px;
       }
-
       .stat-card {
         background: var(--bg2);
         border: 1px solid var(--border);
@@ -103,7 +91,6 @@
         position: relative;
         overflow: hidden;
       }
-
       .stat-card::after {
         content: "";
         position: absolute;
@@ -114,7 +101,6 @@
         background: var(--blue);
         opacity: 0.5;
       }
-
       .stat-label {
         font-size: 10px;
         color: var(--muted);
@@ -123,15 +109,12 @@
         font-weight: 700;
         letter-spacing: 1px;
       }
-
       .stat-value {
         font-family: "Rajdhani";
         font-size: 28px;
         font-weight: 700;
         color: #fff;
       }
-
-      /* Alert Banner */
       .alert-banner {
         background: rgba(62, 207, 142, 0.03);
         border: 1px solid rgba(62, 207, 142, 0.2);
@@ -145,8 +128,6 @@
         font-size: 13px;
         font-weight: 500;
       }
-
-      /* Leaderboard */
       .section-title {
         font-size: 11px;
         color: var(--muted);
@@ -155,14 +136,12 @@
         margin-bottom: 15px;
         font-weight: 700;
       }
-
       .medal-legend {
         display: flex;
         flex-wrap: wrap;
         gap: 10px;
         margin-bottom: 20px;
       }
-
       .badge {
         padding: 4px 12px;
         border-radius: 20px;
@@ -174,7 +153,6 @@
         gap: 6px;
         background: rgba(255, 255, 255, 0.03);
       }
-
       .table-box {
         background: var(--bg2);
         border: 1px solid var(--border);
@@ -182,14 +160,12 @@
         overflow: hidden;
         margin-bottom: 30px;
       }
-
       .grid-row {
         display: grid;
         grid-template-columns: 50px 1fr 60px 60px 60px 60px 60px 70px 80px;
         align-items: center;
         padding: 15px 25px;
       }
-
       .table-header {
         border-bottom: 1px solid var(--border);
         font-size: 10px;
@@ -197,17 +173,14 @@
         text-transform: uppercase;
         font-weight: 700;
       }
-
       .player-row {
         border-bottom: 1px solid var(--border);
         font-size: 14px;
         transition: background 0.2s;
       }
-
       .player-row:hover {
         background: rgba(255, 255, 255, 0.01);
       }
-
       .rank-circle {
         width: 30px;
         height: 30px;
@@ -219,18 +192,15 @@
         font-size: 12px;
         font-weight: 700;
       }
-
       .rank-1 {
         color: var(--gold);
         border-color: var(--gold);
         background: rgba(245, 197, 66, 0.05);
       }
-
       .p-name {
         font-weight: 600;
         text-transform: uppercase;
       }
-
       .p-pts {
         text-align: right;
         color: var(--gold);
@@ -238,14 +208,11 @@
         font-size: 24px;
         font-weight: 700;
       }
-
-      /* Footer */
       .footer-grid {
         display: grid;
         grid-template-columns: 1fr 1fr;
         gap: 30px;
       }
-
       .feed-box,
       .rules-box {
         background: var(--bg2);
@@ -253,7 +220,6 @@
         border-radius: 12px;
         padding: 24px;
       }
-
       .feed-item {
         display: flex;
         justify-content: space-between;
@@ -261,18 +227,14 @@
         padding: 10px 0;
         border-bottom: 1px solid rgba(255, 255, 255, 0.02);
       }
-
       .feed-time {
         color: var(--muted);
         width: 60px;
       }
-
       .feed-desc {
         flex: 1;
         padding: 0 15px;
       }
-
-      /* Modal */
       .modal-overlay {
         display: none;
         position: fixed;
@@ -283,11 +245,9 @@
         justify-content: center;
         padding: 20px;
       }
-
       .modal-overlay.open {
         display: flex;
       }
-
       .modal {
         background: var(--bg2);
         border: 1px solid var(--border);
@@ -296,7 +256,6 @@
         max-width: 400px;
         padding: 25px;
       }
-
       input {
         width: 100%;
         padding: 12px;
@@ -307,7 +266,6 @@
         border-radius: 6px;
         outline: none;
       }
-
       label {
         font-size: 10px;
         color: var(--muted);
@@ -316,7 +274,6 @@
         display: block;
         font-weight: 700;
       }
-
       .btn {
         background: var(--bg3);
         border: 1px solid var(--border);
@@ -327,14 +284,11 @@
         font-size: 12px;
         font-weight: 600;
       }
-
       .btn-primary {
         background: var(--blue);
         color: #000;
         border: none;
       }
-
-      /* Responsive */
       @media (max-width: 850px) {
         .grid-row {
           grid-template-columns: 40px 1fr 60px 75px;
@@ -385,7 +339,17 @@
             ></span>
             LIVE
           </div>
-          <button class="btn" onclick="openLoginModal()">Admin</button>
+          <button
+            class="btn"
+            id="admin-button"
+            style="display: none"
+            onclick="openAdmin()"
+          >
+            Admin
+          </button>
+          <button class="btn" id="login-button" onclick="openLoginModal()">
+            Admin
+          </button>
         </div>
       </div>
 
@@ -594,7 +558,6 @@
       </div>
     </div>
 
-    <!-- Firebase and JavaScript -->
     <script type="module">
       import { initializeApp } from "https://www.gstatic.com/firebasejs/10.12.0/firebase-app.js";
       import {
@@ -632,18 +595,14 @@
 
       // Check auth state
       onAuthStateChanged(auth, (user) => {
+        const adminButton = document.getElementById("admin-button");
+        const loginButton = document.getElementById("login-button");
         if (user) {
-          document.querySelector(
-            '.btn[onclick="openLoginModal()"]',
-          ).style.display = "none";
-          document.querySelector('.btn[onclick="openAdmin()"]').style.display =
-            "inline-block";
+          adminButton.style.display = "inline-block";
+          loginButton.style.display = "none";
         } else {
-          document.querySelector(
-            '.btn[onclick="openLoginModal()"]',
-          ).style.display = "inline-block";
-          document.querySelector('.btn[onclick="openAdmin()"]').style.display =
-            "none";
+          adminButton.style.display = "none";
+          loginButton.style.display = "inline-block";
         }
       });
 
