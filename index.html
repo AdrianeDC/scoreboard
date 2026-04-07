@@ -877,45 +877,36 @@
     <div class="overlay" id="login-modal">
       <div class="modal">
         <h2>Admin Login</h2>
-        <p class="sub">Sign in with your Google account to manage scores.</p>
-        <button
-          class="btn btn-google"
-          style="
-            width: 100%;
-            justify-content: center;
-            border-radius: 8px;
-            font-family: &quot;Barlow&quot;;
-            font-weight: 600;
-          "
-          onclick="signInGoogle()"
-        >
-          <svg class="g-icon" viewBox="0 0 48 48">
-            <path
-              fill="#EA4335"
-              d="M24 9.5c3.2 0 5.8 1.1 7.9 2.9l5.9-5.9C34.1 3.3 29.4 1 24 1 15.2 1 7.7 6.2 4.1 13.7l6.9 5.3C12.8 13.5 17.9 9.5 24 9.5z"
-            />
-            <path
-              fill="#4285F4"
-              d="M46.6 24.5c0-1.6-.1-3.1-.4-4.5H24v8.5h12.7c-.6 3-2.3 5.6-4.8 7.3l7.5 5.8c4.3-4 6.8-9.9 7.2-17.1z"
-            />
-            <path
-              fill="#FBBC05"
-              d="M11 28.2c-.6-1.7-.9-3.5-.9-5.3s.3-3.6.9-5.3L4.1 12.3A22.9 22.9 0 001 22.9c0 3.8.9 7.4 2.4 10.6l7.6-5.3z"
-            />
-            <path
-              fill="#34A853"
-              d="M24 46c5.4 0 10-.2 13.5-2.9l-7.5-5.8c-1.7 1.1-3.9 1.7-6 1.7-6.1 0-11.2-4-13-9.8l-6.9 5.3C7.7 41.8 15.2 47 24 47z"
-            />
-          </svg>
-          Continue with Google
-        </button>
-        <div class="modal-btns" style="margin-top: 16px">
+        <p class="sub">Enter your admin credentials to manage scores.</p>
+
+        <div class="field">
+          <label>Email Address</label>
+          <input
+            type="email"
+            id="admin-email"
+            placeholder="admin@example.com"
+          />
+        </div>
+
+        <div class="field">
+          <label>Password</label>
+          <input type="password" id="admin-password" placeholder="••••••••" />
+        </div>
+
+        <div class="modal-btns">
           <button
             class="btn"
-            style="width: 100%"
+            style="flex: 1"
             onclick="closeModal('login-modal')"
           >
             Cancel
+          </button>
+          <button
+            class="btn btn-primary"
+            style="flex: 2"
+            onclick="signInEmail()"
+          >
+            Sign In
           </button>
         </div>
         <div class="err" id="login-err"></div>
@@ -980,8 +971,7 @@
       } from "https://www.gstatic.com/firebasejs/10.12.0/firebase-firestore.js";
       import {
         getAuth,
-        GoogleAuthProvider,
-        signInWithPopup,
+        signInWithEmailAndPassword,
         onAuthStateChanged,
         signOut,
       } from "https://www.gstatic.com/firebasejs/10.12.0/firebase-auth.js";
@@ -1025,16 +1015,29 @@
         }
       });
 
-      window.signInGoogle = async () => {
+      window.signInEmail = async () => {
+        const email = document.getElementById("admin-email").value;
+        const password = document.getElementById("admin-password").value;
+        const errEl = document.getElementById("login-err");
+
         try {
-          await signInWithPopup(auth, provider);
+          errEl.textContent = ""; // Clear previous errors
+          await signInWithEmailAndPassword(auth, email, password);
           closeModal("login-modal");
+
+          // Clear inputs for security
+          document.getElementById("admin-email").value = "";
+          document.getElementById("admin-password").value = "";
         } catch (e) {
-          document.getElementById("login-err").textContent = e.message;
+          // Friendly error messages
+          if (e.code === "auth/invalid-credential") {
+            errEl.textContent = "Invalid email or password.";
+          } else {
+            errEl.textContent = "Login failed. Please try again.";
+          }
+          console.error(e);
         }
       };
-
-      window.doLogout = () => signOut(auth);
 
       // ── PLAYERS ──
       onSnapshot(collection(db, "players"), (snap) => {
@@ -1064,12 +1067,10 @@
           .map((d) => {
             const x = d.data();
             const t =
-              x.timestamp
-                ?.toDate()
-                .toLocaleTimeString([], {
-                  hour: "2-digit",
-                  minute: "2-digit",
-                }) || "--:--";
+              x.timestamp?.toDate().toLocaleTimeString([], {
+                hour: "2-digit",
+                minute: "2-digit",
+              }) || "--:--";
             const ptsStr = x.pts >= 0 ? `+${x.pts}` : `${x.pts}`;
             const ptsColor = x.pts > 0 ? "var(--green)" : "var(--red)";
             const badgeColors = {
